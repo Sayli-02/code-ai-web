@@ -74,7 +74,7 @@ export default function Home() {
   const styles = getStyles(isMobile);
 
   return (
-    <div id="home" style={styles.container}>
+    <div style={styles.container}>
       <ScrollProgress />
       {/* Background Image with Ken Burns effect */}
       <motion.div
@@ -126,7 +126,7 @@ export default function Home() {
       <Header />
 
       {/* Hero Section Container */}
-      <div style={styles.heroSection}>
+      <div id="home" style={styles.heroSection}>
         {/* Footer Content */}
         <motion.footer
           style={styles.footerWrapper}
