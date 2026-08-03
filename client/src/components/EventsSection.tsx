@@ -43,8 +43,8 @@ export default function EventsSection() {
   const styles = {
     section: {
       padding: isMobile ? '40px 16px' : '80px 32px',
-      backgroundColor: '#f9f9f9',
-      borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+      backgroundColor: 'transparent',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
     },
     container: {
       maxWidth: '1200px',
@@ -53,7 +53,7 @@ export default function EventsSection() {
     heading: {
       fontSize: isMobile ? '2rem' : '2.5rem',
       fontWeight: 300 as const,
-      color: '#000000',
+      color: '#ffffff',
       marginBottom: '48px',
       letterSpacing: '-0.02em',
     },

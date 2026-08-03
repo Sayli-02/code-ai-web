@@ -7,6 +7,7 @@ import TeamSection from '@/components/TeamSection';
 import ContactSection from '@/components/ContactSection';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Sparkles from '@/components/Sparkles';
 
 const easeCustom: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -184,6 +185,8 @@ export default function Home() {
       </div>
 
       <div style={styles.contentSections}>
+        <Sparkles />
+        
         {/* About Section */}
         <AboutSection />
 
@@ -219,7 +222,7 @@ const getStyles = (isMobile: boolean) => ({
   contentSections: {
     position: 'relative' as const,
     zIndex: 10,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#000000',
   },
   backgroundWrapper: {
     position: 'fixed' as const,
