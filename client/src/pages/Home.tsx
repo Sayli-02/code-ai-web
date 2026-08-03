@@ -278,7 +278,7 @@ const getStyles = (isMobile: boolean) => ({
   },
   animatedBrain: {
     position: 'absolute' as const,
-    top: '-2%',
+    top: '-2.5%',
     left: '38%',
     transform: 'translate(-50%, -50%)',
     width: '35%',
