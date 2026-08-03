@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
+import { useIsMobile } from '@/hooks/useMobile';
 import AboutSection from '@/components/AboutSection';
 import EventsSection from '@/components/EventsSection';
 import TeamSection from '@/components/TeamSection';
@@ -10,6 +11,7 @@ import Footer from '@/components/Footer';
 const easeCustom: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function Home() {
+  const isMobile = useIsMobile();
   const { scrollY } = useScroll();
   const backgroundY = useTransform(scrollY, [0, 800], ['0%', '30%']);
   const backgroundOpacity = useTransform(scrollY, [0, 600], [1, 0.3]);
@@ -65,6 +67,8 @@ export default function Home() {
       return () => clearTimeout(timer);
     }
   }, [stage]);
+
+  const styles = getStyles(isMobile);
 
   return (
     <div style={styles.container}>
@@ -197,7 +201,7 @@ export default function Home() {
   );
 }
 
-const styles = {
+const getStyles = (isMobile: boolean) => ({
   container: {
     position: 'relative' as const,
     width: '100%',
@@ -254,8 +258,8 @@ const styles = {
   },
   animatedBrain: {
     position: 'absolute' as const,
-    top: '2%',
-    left: '74%',
+    top: '-14%',
+    left: '58%',
     transform: 'translate(-50%, -50%)',
     width: '35%',
     height: 'auto',
@@ -266,14 +270,15 @@ const styles = {
   footerWrapper: {
     position: 'relative' as const,
     zIndex: 10,
-    padding: '40px 32px',
+    padding: isMobile ? '24px 16px' : '40px 32px',
     background: 'linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%)',
   },
   footerContent: {
     display: 'flex' as const,
-    justifyContent: 'space-between' as const,
-    alignItems: 'flex-end' as const,
-    gap: '40px',
+    flexDirection: isMobile ? 'column' as const : 'row' as const,
+    justifyContent: isMobile ? 'flex-start' as const : 'space-between' as const,
+    alignItems: isMobile ? 'flex-start' as const : 'flex-end' as const,
+    gap: isMobile ? '24px' : '40px',
   },
   footerLeft: {
     display: 'flex' as const,
@@ -335,6 +340,7 @@ const styles = {
   footerRight: {
     display: 'flex' as const,
     alignItems: 'center' as const,
+    flexWrap: 'wrap' as const,
     gap: '12px',
   },
   tagPill: {
@@ -346,4 +352,4 @@ const styles = {
     fontWeight: 500 as const,
     color: '#000000',
   },
-};
+});

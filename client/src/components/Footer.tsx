@@ -1,14 +1,16 @@
 import { motion } from 'motion/react';
 import { Github, Linkedin, Instagram } from 'lucide-react';
+import { useIsMobile } from '@/hooks/useMobile';
 
 export default function Footer() {
+  const isMobile = useIsMobile();
   const currentYear = new Date().getFullYear();
   
   const styles = {
     footer: {
       backgroundColor: '#000000',
       color: '#ffffff',
-      padding: '60px 32px 32px',
+      padding: isMobile ? '40px 16px 24px' : '60px 32px 32px',
       fontFamily: 'Inter, sans-serif',
     },
     container: {
@@ -20,15 +22,15 @@ export default function Footer() {
     },
     topSection: {
       display: 'flex' as const,
+      flexDirection: isMobile ? 'column' as const : 'row' as const,
       justifyContent: 'space-between' as const,
-      flexWrap: 'wrap' as const,
-      gap: '40px',
+      gap: isMobile ? '48px' : '40px',
     },
     brandSection: {
       display: 'flex' as const,
       flexDirection: 'column' as const,
       gap: '16px',
-      maxWidth: '300px',
+      maxWidth: isMobile ? '100%' : '300px',
     },
     brandName: {
       fontSize: '20px',
@@ -42,8 +44,8 @@ export default function Footer() {
     },
     linksSection: {
       display: 'flex' as const,
-      gap: '64px',
-      flexWrap: 'wrap' as const,
+      flexDirection: isMobile ? 'column' as const : 'row' as const,
+      gap: isMobile ? '32px' : '64px',
     },
     linkColumn: {
       display: 'flex' as const,
@@ -66,12 +68,12 @@ export default function Footer() {
     },
     bottomSection: {
       display: 'flex' as const,
-      justifyContent: 'space-between' as const,
-      alignItems: 'center' as const,
+      flexDirection: isMobile ? 'column-reverse' as const : 'row' as const,
+      justifyContent: isMobile ? 'flex-start' as const : 'space-between' as const,
+      alignItems: isMobile ? 'flex-start' as const : 'center' as const,
       paddingTop: '32px',
       borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-      flexWrap: 'wrap' as const,
-      gap: '16px',
+      gap: isMobile ? '24px' : '16px',
     },
     copyright: {
       fontSize: '13px',

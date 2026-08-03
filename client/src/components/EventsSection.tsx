@@ -1,7 +1,10 @@
 import { motion } from 'motion/react';
 import { Calendar, MapPin } from 'lucide-react';
+import { useIsMobile } from '@/hooks/useMobile';
 
 export default function EventsSection() {
+  const isMobile = useIsMobile();
+  const easeCustom = [0.16, 1, 0.3, 1];
   const events = [
     {
       id: 1,
@@ -39,7 +42,7 @@ export default function EventsSection() {
 
   const styles = {
     section: {
-      padding: '80px 32px',
+      padding: isMobile ? '40px 16px' : '80px 32px',
       backgroundColor: '#f9f9f9',
       borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
     },
@@ -48,25 +51,59 @@ export default function EventsSection() {
       margin: '0 auto',
     },
     heading: {
-      fontSize: '2.5rem',
+      fontSize: isMobile ? '2rem' : '2.5rem',
       fontWeight: 300 as const,
       color: '#000000',
       marginBottom: '48px',
       letterSpacing: '-0.02em',
     },
     eventsGrid: {
-      display: 'grid' as const,
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '24px',
+      display: 'flex' as const,
+      flexDirection: 'column' as const,
+      gap: '48px',
+      position: 'relative' as const,
+    },
+    timelineLine: {
+      position: 'absolute' as const,
+      left: '50%',
+      top: 0,
+      bottom: 0,
+      width: '2px',
+      transform: 'translateX(-50%)',
+      background: 'linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.2), rgba(0,0,0,0.05))',
+      display: isMobile ? 'none' : 'block',
+    },
+    eventWrapper: (index: number) => ({
+      position: 'relative' as const,
+      width: '100%',
+      display: 'flex' as const,
+      justifyContent: isMobile ? 'flex-start' : (index % 2 === 0 ? 'flex-start' : 'flex-end'),
+    }),
+    timelineNode: {
+      position: 'absolute' as const,
+      top: '32px',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '12px',
+      height: '12px',
+      backgroundColor: '#111',
+      border: '3px solid #fff',
+      boxShadow: '0 0 0 2px rgba(0,0,0,0.15)',
+      borderRadius: '50%',
+      zIndex: 2,
+      display: isMobile ? 'none' : 'block',
     },
     eventCard: {
+      width: isMobile ? '100%' : '46%',
       backgroundColor: '#ffffff',
-      border: '1px solid rgba(0, 0, 0, 0.1)',
+      border: '1px solid rgba(0, 0, 0, 0.08)',
       borderRadius: '12px',
       padding: '24px',
+      boxShadow: '0 4px 20px rgba(0,0,0,0.02)',
     },
     eventHeader: {
       display: 'flex' as const,
+      flexDirection: isMobile ? 'column' as const : 'row' as const,
       justifyContent: 'space-between' as const,
       alignItems: 'flex-start' as const,
       marginBottom: '16px',
@@ -126,36 +163,39 @@ export default function EventsSection() {
       >
         <h2 style={styles.heading}>Upcoming Events</h2>
         <div style={styles.eventsGrid}>
+          {!isMobile && <div style={styles.timelineLine} />}
           {events.map((event, index) => (
-            <motion.div 
-              key={event.id} 
-              style={styles.eventCard}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-              whileHover={{ 
-                y: -6, 
-                boxShadow: '0 12px 30px rgba(0,0,0,0.08)',
-                borderColor: 'rgba(0,0,0,0.25)' 
-              }}
-            >
-              <div style={styles.eventHeader}>
-                <h3 style={styles.eventTitle}>{event.title}</h3>
-                <span style={styles.statusBadge(event.status)}>{event.status}</span>
-              </div>
-              <p style={styles.eventDescription}>{event.description}</p>
-              <div style={styles.eventMeta}>
-                <div style={styles.metaItem}>
-                  <Calendar size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>{event.date}</span>
+            <div key={event.id} style={styles.eventWrapper(index)}>
+              {!isMobile && <div style={styles.timelineNode} />}
+              <motion.div 
+                style={styles.eventCard}
+                initial={{ opacity: 0, x: isMobile ? 0 : (index % 2 === 0 ? -40 : 40) }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, ease: easeCustom as any }}
+                whileHover={{ 
+                  y: -4, 
+                  boxShadow: '0 12px 24px rgba(0,0,0,0.06)',
+                  borderColor: 'rgba(0,0,0,0.15)' 
+                }}
+              >
+                <div style={styles.eventHeader}>
+                  <h3 style={styles.eventTitle}>{event.title}</h3>
+                  <span style={styles.statusBadge(event.status)}>{event.status}</span>
                 </div>
-                <div style={styles.metaItem}>
-                  <MapPin size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <span>{event.venue}</span>
+                <p style={styles.eventDescription}>{event.description}</p>
+                <div style={styles.eventMeta}>
+                  <div style={styles.metaItem}>
+                    <Calendar size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
+                    <span>{event.date}</span>
+                  </div>
+                  <div style={styles.metaItem}>
+                    <MapPin size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
+                    <span>{event.venue}</span>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           ))}
         </div>
       </motion.div>

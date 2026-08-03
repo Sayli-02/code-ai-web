@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { CheckCircle2 } from 'lucide-react';
+import { useIsMobile } from '@/hooks/useMobile';
 
 export default function AboutSection() {
+  const easeCustom = [0.16, 1, 0.3, 1];
+  const isMobile = useIsMobile();
   const bullets = [
     'Practical application of theoretical knowledge',
     'Building industry-ready skills',
@@ -11,23 +14,34 @@ export default function AboutSection() {
 
   const styles = {
     section: {
-      padding: '80px 32px',
+      padding: isMobile ? '40px 16px' : '80px 32px',
       backgroundColor: '#ffffff',
       borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
     },
     container: {
       maxWidth: '1200px',
       margin: '0 auto',
+      position: 'relative' as const,
+      paddingLeft: isMobile ? '20px' : '40px',
+    },
+    accentBar: {
+      position: 'absolute' as const,
+      left: 0,
+      top: '10px',
+      height: '80%',
+      width: '3px',
+      background: 'linear-gradient(to bottom, #111 0%, transparent 100%)',
+      borderRadius: '4px',
     },
     heading: {
-      fontSize: '2.5rem',
+      fontSize: isMobile ? '2rem' : '2.5rem',
       fontWeight: 400 as const,
       color: '#000000',
       marginBottom: '32px',
       letterSpacing: '-0.03em',
     },
     paragraph: {
-      fontSize: '22px',
+      fontSize: isMobile ? '18px' : '22px',
       fontWeight: 300 as const,
       color: 'rgba(0, 0, 0, 0.8)',
       lineHeight: '1.5',
@@ -36,7 +50,7 @@ export default function AboutSection() {
       letterSpacing: '-0.01em',
     },
     subParagraph: {
-      fontSize: '16px',
+      fontSize: isMobile ? '15px' : '16px',
       fontWeight: 400 as const,
       color: 'rgba(0, 0, 0, 0.65)',
       lineHeight: '1.6',
@@ -45,17 +59,17 @@ export default function AboutSection() {
     },
     bulletsContainer: {
       display: 'grid' as const,
-      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-      gap: '32px',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
+      gap: isMobile ? '16px' : '32px',
       marginBottom: '48px',
     },
     bulletItem: {
       display: 'flex' as const,
       gap: '16px',
-      backgroundColor: '#fbfbfb',
+      background: 'linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%)',
       padding: '24px',
       borderRadius: '12px',
-      border: '1px solid rgba(0,0,0,0.05)',
+      border: '1px solid rgba(0,0,0,0.08)',
       boxShadow: '0 4px 20px rgba(0,0,0,0.02)',
       alignItems: 'flex-start' as const,
     },
@@ -81,6 +95,17 @@ export default function AboutSection() {
     },
   };
 
+  const containerVariants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.15 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: easeCustom as any } },
+    hover: { y: -4, boxShadow: '0 12px 24px rgba(0,0,0,0.08)', borderColor: 'rgba(0,0,0,0.15)' },
+  };
+
   return (
     <section id="about" style={styles.section}>
       <motion.div 
@@ -90,42 +115,47 @@ export default function AboutSection() {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
+        <div style={styles.accentBar} />
         <h2 style={styles.heading}>About DJS CodeAI</h2>
         <p style={styles.paragraph}>
           DJS CodeAI is a student-led community at DJ Sanghvi College of Engineering dedicated to exploring artificial intelligence and coding, bringing together students to learn, build, and innovate together.
         </p>
 
-        <div style={{ paddingLeft: '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }}>
-          <h3 style={{...styles.heading, fontSize: '1.75rem', marginBottom: '16px'}}>Our Vision</h3>
+        <div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }}>
+          <h3 style={{...styles.heading, fontSize: isMobile ? '1.5rem' : '1.75rem', marginBottom: '16px'}}>Our Vision</h3>
           <p style={styles.subParagraph}>
             Bridging theoretical knowledge and practical application through real projects and mentorship.
           </p>
         </div>
 
-        <div style={styles.bulletsContainer}>
+        <motion.div 
+          style={styles.bulletsContainer}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {bullets.map((bullet, index) => (
             <motion.div 
               key={index}
               style={styles.bulletItem}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+              variants={itemVariants}
               whileHover="hover"
-              variants={{ hover: { y: -4, boxShadow: '0 12px 30px rgba(0,0,0,0.06)', borderColor: 'rgba(0,0,0,0.1)' } }}
             >
-              <motion.div variants={{ hover: { scale: 1.2, rotate: 5 } }} transition={{ type: "spring", stiffness: 400 }}>
-                <CheckCircle2 size={20} color="#000000" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <motion.div variants={{ hover: { scale: 1.1, rotate: 5 } }} transition={{ type: "spring", stiffness: 400 }}>
+                <div style={{ backgroundColor: '#111', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+                  <CheckCircle2 size={16} color="#ffffff" />
+                </div>
               </motion.div>
               <div>
                 <p style={styles.bulletText}>{bullet}</p>
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <div style={{ paddingLeft: '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }}>
-          <h3 style={{...styles.heading, fontSize: '1.75rem', marginBottom: '16px'}}>Mentor-Mentee System</h3>
+        <div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }}>
+          <h3 style={{...styles.heading, fontSize: isMobile ? '1.5rem' : '1.75rem', marginBottom: '16px'}}>Mentor-Mentee System</h3>
           <p style={styles.subParagraph}>
             A structured mentor-mentee pairing system designed for hands-on guidance and continuous learning.
           </p>

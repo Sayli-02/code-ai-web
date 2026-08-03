@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { Plus } from 'lucide-react';
+import { Plus, Menu, X } from 'lucide-react';
+import { useIsMobile } from '@/hooks/useMobile';
 
 const easeCustom: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function Header() {
+  const isMobile = useIsMobile();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   // Map scroll values to colors: past ~600px switches to light mode
   const navLinkColor = useTransform(scrollY, [500, 600], ['#ffffff', '#000000']);
@@ -32,7 +36,7 @@ export default function Header() {
       left: 0,
       right: 0,
       zIndex: 50,
-      padding: '24px 32px',
+      padding: isMobile ? '16px 20px' : '24px 32px',
       display: 'flex' as const,
       justifyContent: 'space-between' as const,
       alignItems: 'center' as const,
@@ -44,7 +48,7 @@ export default function Header() {
       alignItems: 'center' as const,
       gap: '24px',
       pointerEvents: 'auto' as const,
-      paddingLeft: '280px', // Space for the absolute logo
+      paddingLeft: isMobile ? '0px' : '280px', // Space for the absolute logo
     },
     navRight: {
       display: 'flex' as const,
@@ -93,6 +97,40 @@ export default function Header() {
       fontSize: '11px',
       fontWeight: 500 as const,
     },
+    hamburger: {
+      display: 'flex' as const,
+      alignItems: 'center' as const,
+      justifyContent: 'center' as const,
+      border: 'none',
+      borderRadius: '50%',
+      width: '36px',
+      height: '36px',
+      cursor: 'pointer',
+      pointerEvents: 'auto' as const,
+      marginRight: '12px',
+    },
+    mobileMenu: {
+      position: 'fixed' as const,
+      top: '72px',
+      left: '16px',
+      right: '16px',
+      backgroundColor: 'rgba(0, 0, 0, 0.9)',
+      backdropFilter: 'blur(20px)',
+      borderRadius: '16px',
+      padding: '16px 0',
+      display: 'flex' as const,
+      flexDirection: 'column' as const,
+      zIndex: 49,
+      border: '1px solid rgba(255,255,255,0.1)',
+    },
+    mobileLink: {
+      padding: '16px 24px',
+      color: '#ffffff',
+      textDecoration: 'none',
+      fontSize: '16px',
+      fontWeight: 500 as const,
+      borderBottom: '1px solid rgba(255,255,255,0.05)',
+    },
   };
 
   return (
@@ -101,7 +139,8 @@ export default function Header() {
       <motion.img
         src="/assets/logo.jpeg"
         alt="DJS CodeAI Logo"
-        style={styles.logoIcon}
+        style={{ ...styles.logoIcon, top: isMobile ? '20px' : '28px', left: isMobile ? '20px' : '32px', height: isMobile ? '32px' : '40px' }}
+
         initial={{ y: -16, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: easeCustom as any }}
@@ -116,19 +155,27 @@ export default function Header() {
       >
         {/* Left side */}
         <div style={styles.navLeft}>
-
-
           {/* Navbar Links */}
-          <motion.div style={{ ...styles.navLinks, backgroundColor: navBgColor }}>
-            <motion.a whileHover={{ opacity: 1 }} href="#about" style={{ ...styles.navLink, color: navLinkColor }}>About</motion.a>
-            <motion.a whileHover={{ opacity: 1 }} href="#events" style={{ ...styles.navLink, color: navLinkColor }}>Events</motion.a>
-            <motion.a whileHover={{ opacity: 1 }} href="#team" style={{ ...styles.navLink, color: navLinkColor }}>Team</motion.a>
-            <motion.a whileHover={{ opacity: 1 }} href="#contact" style={{ ...styles.navLink, color: navLinkColor }}>Contact</motion.a>
-          </motion.div>
+          {!isMobile && (
+            <motion.div style={{ ...styles.navLinks, backgroundColor: navBgColor }}>
+              <motion.a whileHover={{ opacity: 1 }} href="#about" style={{ ...styles.navLink, color: navLinkColor }}>About</motion.a>
+              <motion.a whileHover={{ opacity: 1 }} href="#events" style={{ ...styles.navLink, color: navLinkColor }}>Events</motion.a>
+              <motion.a whileHover={{ opacity: 1 }} href="#team" style={{ ...styles.navLink, color: navLinkColor }}>Team</motion.a>
+              <motion.a whileHover={{ opacity: 1 }} href="#contact" style={{ ...styles.navLink, color: navLinkColor }}>Contact</motion.a>
+            </motion.div>
+          )}
         </div>
 
         {/* Right side */}
         <div style={styles.navRight}>
+          {isMobile && (
+            <motion.button 
+              style={{ ...styles.hamburger, backgroundColor: navBgColor, color: navLinkColor as any }}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </motion.button>
+          )}
           <motion.button 
             style={{ ...styles.neuralButton, backgroundColor: btnBgColor }}
             whileHover={{ scale: 1.05 }}
@@ -146,6 +193,21 @@ export default function Header() {
           </motion.button>
         </div>
       </motion.nav>
+
+      {/* Mobile Menu Dropdown */}
+      {isMobile && (
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: isMobileMenuOpen ? 1 : 0, y: isMobileMenuOpen ? 0 : -20, pointerEvents: isMobileMenuOpen ? 'auto' : 'none' }}
+          transition={{ duration: 0.3, ease: easeCustom as any }}
+          style={styles.mobileMenu}
+        >
+          <a href="#about" onClick={() => setIsMobileMenuOpen(false)} style={styles.mobileLink}>About</a>
+          <a href="#events" onClick={() => setIsMobileMenuOpen(false)} style={styles.mobileLink}>Events</a>
+          <a href="#team" onClick={() => setIsMobileMenuOpen(false)} style={styles.mobileLink}>Team</a>
+          <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} style={{ ...styles.mobileLink, borderBottom: 'none' }}>Contact</a>
+        </motion.div>
+      )}
     </div>
   );
 }

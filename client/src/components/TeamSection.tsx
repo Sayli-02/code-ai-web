@@ -1,7 +1,10 @@
 import { motion } from 'motion/react';
 import { User } from 'lucide-react';
+import { useIsMobile } from '@/hooks/useMobile';
 
 export default function TeamSection() {
+  const isMobile = useIsMobile();
+  const easeCustom = [0.16, 1, 0.3, 1];
   const teamMembers = [
     {
       id: 'faculty-1',
@@ -57,7 +60,7 @@ export default function TeamSection() {
 
   const styles = {
     section: {
-      padding: '80px 32px',
+      padding: isMobile ? '40px 16px' : '80px 32px',
       backgroundColor: '#ffffff',
       borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
     },
@@ -66,7 +69,7 @@ export default function TeamSection() {
       margin: '0 auto',
     },
     heading: {
-      fontSize: '2.5rem',
+      fontSize: isMobile ? '2rem' : '2.5rem',
       fontWeight: 300 as const,
       color: '#000000',
       marginBottom: '48px',
@@ -74,8 +77,8 @@ export default function TeamSection() {
     },
     teamGrid: {
       display: 'grid' as const,
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: '32px',
+      gridTemplateColumns: isMobile ? 'repeat(auto-fit, minmax(140px, 1fr))' : 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: isMobile ? '16px' : '32px',
     },
     memberCard: {
       textAlign: 'center' as const,
@@ -84,10 +87,11 @@ export default function TeamSection() {
       borderRadius: '12px',
       padding: '24px 16px',
     },
-    memberPlaceholder: {
-      width: '120px',
-      height: '120px',
-      backgroundColor: '#f8f8f8',
+    memberPlaceholder: (isFaculty: boolean) => ({
+      width: isFaculty ? '140px' : '120px',
+      height: isFaculty ? '140px' : '120px',
+      background: 'linear-gradient(135deg, #f5f5f5, #e8e8e8)',
+      border: '1px solid rgba(0, 0, 0, 0.08)',
       borderRadius: '50%',
       margin: '0 auto 20px',
       display: 'flex' as const,
@@ -96,7 +100,7 @@ export default function TeamSection() {
       fontSize: '48px',
       color: 'rgba(0, 0, 0, 0.2)',
       overflow: 'hidden' as const,
-    },
+    }),
     memberName: {
       fontSize: '18px',
       fontWeight: 600 as const,
@@ -121,6 +125,17 @@ export default function TeamSection() {
     },
   };
 
+  const gridVariants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.08 } }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 25 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeCustom as any } },
+    hover: { y: -6, boxShadow: '0 12px 28px rgba(0,0,0,0.08)', borderColor: 'rgba(0,0,0,0.08)' }
+  };
+
   return (
     <section id="team" style={styles.section}>
       <motion.div 
@@ -131,42 +146,50 @@ export default function TeamSection() {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <h2 style={styles.heading}>Meet Our Team</h2>
-        <div style={styles.teamGrid}>
+        <motion.div 
+          style={styles.teamGrid}
+          variants={gridVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {teamMembers.map((member, index) => (
             <motion.div 
               key={member.id} 
               style={styles.memberCard}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+              variants={cardVariants}
               whileHover="hover"
-              variants={{ hover: { y: -6, boxShadow: '0 12px 30px rgba(0,0,0,0.08)', borderColor: 'rgba(0,0,0,0.1)' } }}
             >
-              <div style={styles.memberPlaceholder}>
+              <div style={styles.memberPlaceholder(member.id.toString().startsWith('faculty'))}>
                 {member.photo ? (
                   <motion.img 
                     src={member.photo} 
                     alt={member.name} 
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                    variants={{ hover: { scale: 1.1 } }}
+                    variants={{ hover: { scale: 1.08 } }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                   />
                 ) : (
                   <motion.div
-                    variants={{ hover: { scale: 1.1 } }}
+                    variants={{ hover: { scale: 1.08 } }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                   >
                     <User size={48} color="rgba(0,0,0,0.2)" />
                   </motion.div>
                 )}
               </div>
-              <h3 style={styles.memberName}>{member.name}</h3>
-              <p style={styles.memberRole}>{member.role}</p>
+              <h3 style={{...styles.memberName, marginBottom: member.id.toString().startsWith('faculty') ? '8px' : '16px'}}>{member.name}</h3>
+              {member.id.toString().startsWith('faculty') && (
+                <div style={{ display: 'inline-block', backgroundColor: '#000', color: '#fff', fontSize: '10px', padding: '2px 10px', borderRadius: '9999px', marginBottom: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Faculty</div>
+              )}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '12px' }}>
+                <div style={{ width: '16px', height: '1px', backgroundColor: '#000' }} />
+                <p style={{...styles.memberRole, marginBottom: 0}}>{member.role}</p>
+              </div>
               <p style={styles.memberBio}>{member.bio}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   );
