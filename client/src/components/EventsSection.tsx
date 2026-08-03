@@ -43,8 +43,8 @@ export default function EventsSection() {
   const styles = {
     section: {
       padding: isMobile ? '40px 16px' : '80px 32px',
-      backgroundColor: 'transparent',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+      backgroundColor: '#f9f9f9',
+      borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
     },
     container: {
       maxWidth: '1200px',
@@ -95,11 +95,11 @@ export default function EventsSection() {
     },
     eventCard: {
       width: isMobile ? '100%' : '46%',
-      backgroundColor: '#0a0a0a',
-      border: '1px solid rgba(255, 255, 255, 0.1)',
+      backgroundColor: '#ffffff',
+      border: '1px solid rgba(0, 0, 0, 0.08)',
       borderRadius: '12px',
       padding: '24px',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+      boxShadow: '0 4px 20px rgba(0,0,0,0.02)',
     },
     eventHeader: {
       display: 'flex' as const,
@@ -112,7 +112,7 @@ export default function EventsSection() {
     eventTitle: {
       fontSize: '19px',
       fontWeight: 600 as const,
-      color: '#ffffff',
+      color: '#000000',
       margin: 0,
       letterSpacing: '-0.01em',
     },
@@ -123,14 +123,14 @@ export default function EventsSection() {
       fontSize: '11px',
       fontWeight: 600 as const,
       whiteSpace: 'nowrap' as const,
-      backgroundColor: status === 'Registration Open' ? '#ffffff' : 'transparent',
-      color: status === 'Registration Open' ? '#000000' : 'rgba(255, 255, 255, 0.6)',
-      border: status === 'Registration Open' ? '1px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.2)',
+      backgroundColor: status === 'Registration Open' ? '#000000' : 'transparent',
+      color: status === 'Registration Open' ? '#ffffff' : 'rgba(0, 0, 0, 0.6)',
+      border: status === 'Registration Open' ? '1px solid #000000' : '1px solid rgba(0, 0, 0, 0.2)',
     }),
     eventDescription: {
       fontSize: '14px',
       fontWeight: 400 as const,
-      color: 'rgba(255, 255, 255, 0.75)',
+      color: 'rgba(0, 0, 0, 0.65)',
       lineHeight: '1.5',
       marginBottom: '16px',
       margin: '0 0 16px 0',
@@ -143,7 +143,7 @@ export default function EventsSection() {
     metaItem: {
       fontSize: '13px',
       fontWeight: 400 as const,
-      color: 'rgba(255, 255, 255, 0.6)',
+      color: 'rgba(0, 0, 0, 0.6)',
       display: 'flex' as const,
       gap: '8px',
     },
@@ -175,8 +175,8 @@ export default function EventsSection() {
                 transition={{ duration: 0.5, ease: easeCustom as any }}
                 whileHover={{ 
                   y: -4, 
-                  boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
-                  borderColor: 'rgba(255,255,255,0.25)' 
+                  boxShadow: '0 12px 24px rgba(0,0,0,0.06)',
+                  borderColor: 'rgba(0,0,0,0.15)' 
                 }}
               >
                 <div style={styles.eventHeader}>

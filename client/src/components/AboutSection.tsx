@@ -15,9 +15,8 @@ export default function AboutSection() {
   const styles = {
     section: {
       padding: isMobile ? '40px 16px' : '80px 32px',
-      backgroundColor: 'rgba(0, 0, 0, 0.2)',
-      backdropFilter: 'blur(10px)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+      backgroundColor: '#ffffff',
+      borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
     },
     container: {
       maxWidth: '1200px',
@@ -67,11 +66,11 @@ export default function AboutSection() {
     bulletItem: {
       display: 'flex' as const,
       gap: '16px',
-      background: 'linear-gradient(135deg, #111111 0%, #0a0a0a 100%)',
+      background: 'linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%)',
       padding: '24px',
       borderRadius: '12px',
-      border: '1px solid rgba(255,255,255,0.1)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+      border: '1px solid rgba(0,0,0,0.08)',
+      boxShadow: '0 4px 20px rgba(0,0,0,0.02)',
       alignItems: 'flex-start' as const,
     },
     bulletDot: {
@@ -80,7 +79,7 @@ export default function AboutSection() {
     bulletText: {
       fontSize: '15px',
       fontWeight: 400 as const,
-      color: 'rgba(255, 255, 255, 0.7)',
+      color: 'rgba(0, 0, 0, 0.7)',
       lineHeight: '1.5',
     },
     ctaButton: {
@@ -104,7 +103,7 @@ export default function AboutSection() {
   const itemVariants = {
     hidden: { opacity: 0, x: -20 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: easeCustom as any } },
-    hover: { y: -4, boxShadow: '0 12px 24px rgba(0,0,0,0.2)', borderColor: 'rgba(255,255,255,0.25)' },
+    hover: { y: -4, boxShadow: '0 12px 24px rgba(0,0,0,0.08)', borderColor: 'rgba(0,0,0,0.15)' },
   };
 
   return (
@@ -144,8 +143,8 @@ export default function AboutSection() {
               whileHover="hover"
             >
               <motion.div variants={{ hover: { scale: 1.1, rotate: 5 } }} transition={{ type: "spring", stiffness: 400 }}>
-                <div style={{ backgroundColor: '#ffffff', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
-                  <CheckCircle2 size={16} color="#000000" />
+                <div style={{ backgroundColor: '#111', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+                  <CheckCircle2 size={16} color="#ffffff" />
                 </div>
               </motion.div>
               <div>

@@ -31,8 +31,8 @@ export default function ContactSection() {
   const styles = {
     section: {
       padding: isMobile ? '40px 16px' : '80px 32px',
-      backgroundColor: 'transparent',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+      backgroundColor: '#f9f9f9',
+      borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
     },
     container: {
       maxWidth: '1200px',
@@ -41,7 +41,7 @@ export default function ContactSection() {
     heading: {
       fontSize: isMobile ? '2rem' : '2.5rem',
       fontWeight: 300 as const,
-      color: '#ffffff',
+      color: '#000000',
       marginBottom: '48px',
       letterSpacing: '-0.02em',
     },
@@ -64,35 +64,35 @@ export default function ContactSection() {
     label: {
       fontSize: '13px',
       fontWeight: 500 as const,
-      color: '#ffffff',
+      color: '#000000',
       textTransform: 'uppercase' as const,
       letterSpacing: '0.05em',
     },
     input: {
       padding: '12px 16px',
-      border: '1px solid rgba(255, 255, 255, 0.15)',
+      border: '1px solid rgba(0, 0, 0, 0.15)',
       borderRadius: '4px',
       fontSize: '14px',
       fontFamily: 'Inter, sans-serif',
-      backgroundColor: '#0a0a0a',
-      color: '#ffffff',
+      backgroundColor: '#ffffff',
+      color: '#000000',
       transition: 'all 0.2s ease-out',
     },
     textarea: {
       padding: '12px 16px',
-      border: '1px solid rgba(255, 255, 255, 0.15)',
+      border: '1px solid rgba(0, 0, 0, 0.15)',
       borderRadius: '4px',
       fontSize: '14px',
       fontFamily: 'Inter, sans-serif',
-      backgroundColor: '#0a0a0a',
-      color: '#ffffff',
+      backgroundColor: '#ffffff',
+      color: '#000000',
       minHeight: '120px',
       resize: 'vertical' as const,
       transition: 'all 0.2s ease-out',
     },
     submitButton: {
-      backgroundColor: '#ffffff',
-      color: '#000000',
+      backgroundColor: '#000000',
+      color: '#ffffff',
       border: 'none',
       borderRadius: '4px',
       padding: '12px 24px',
@@ -106,7 +106,7 @@ export default function ContactSection() {
       display: 'flex' as const,
       flexDirection: 'column' as const,
       gap: '32px',
-      background: 'linear-gradient(180deg, rgba(255,255,255,0.05), transparent)',
+      background: 'linear-gradient(180deg, rgba(0,0,0,0.02), transparent)',
       padding: '24px',
       borderRadius: '12px',
     },
@@ -114,20 +114,20 @@ export default function ContactSection() {
       display: 'flex' as const,
       flexDirection: 'column' as const,
       gap: '8px',
-      borderLeft: '2px solid rgba(255,255,255,0.15)',
+      borderLeft: '2px solid rgba(0,0,0,0.15)',
       paddingLeft: '16px',
     },
     infoLabel: {
       fontSize: '13px',
       fontWeight: 500 as const,
-      color: '#ffffff',
+      color: '#000000',
       textTransform: 'uppercase' as const,
       letterSpacing: '0.05em',
     },
     infoValue: {
       fontSize: '15px',
       fontWeight: 400 as const,
-      color: 'rgba(255, 255, 255, 0.75)',
+      color: 'rgba(0, 0, 0, 0.75)',
       lineHeight: '1.6',
     },
     socialsContainer: {
@@ -139,8 +139,8 @@ export default function ContactSection() {
       width: '40px',
       height: '40px',
       borderRadius: '4px',
-      backgroundColor: '#ffffff',
-      color: '#000000',
+      backgroundColor: '#000000',
+      color: '#ffffff',
       display: 'flex' as const,
       alignItems: 'center' as const,
       justifyContent: 'center' as const,
@@ -175,7 +175,7 @@ export default function ContactSection() {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <h2 style={{...styles.heading, marginBottom: '16px'}}>Get in Touch</h2>
-        <p style={{ fontSize: isMobile ? '15px' : '16px', color: 'rgba(255, 255, 255, 0.75)', lineHeight: '1.6', marginBottom: isMobile ? '32px' : '48px', maxWidth: '700px' }}>
+        <p style={{ fontSize: isMobile ? '15px' : '16px', color: 'rgba(0, 0, 0, 0.75)', lineHeight: '1.6', marginBottom: isMobile ? '32px' : '48px', maxWidth: '700px' }}>
           Ready to join our AI community? Have questions about our projects? We'd love to hear from you!
         </p>
 
@@ -192,7 +192,7 @@ export default function ContactSection() {
             <motion.div style={styles.formGroup} variants={fieldVariants}>
               <label style={styles.label}>Name</label>
               <input
-                style={{...styles.input, ...(focusedField === 'name' ? { border: '1px solid #ffffff', boxShadow: '0 0 0 3px rgba(255,255,255,0.1)' } : {})}}
+                style={{...styles.input, ...(focusedField === 'name' ? { border: '1px solid #000', boxShadow: '0 0 0 3px rgba(0,0,0,0.06)' } : {})}}
                 type="text"
                 name="name"
                 value={formData.name}
@@ -207,7 +207,7 @@ export default function ContactSection() {
             <motion.div style={styles.formGroup} variants={fieldVariants}>
               <label style={styles.label}>Email</label>
               <input
-                style={{...styles.input, ...(focusedField === 'email' ? { border: '1px solid #ffffff', boxShadow: '0 0 0 3px rgba(255,255,255,0.1)' } : {})}}
+                style={{...styles.input, ...(focusedField === 'email' ? { border: '1px solid #000', boxShadow: '0 0 0 3px rgba(0,0,0,0.06)' } : {})}}
                 type="email"
                 name="email"
                 value={formData.email}
@@ -222,7 +222,7 @@ export default function ContactSection() {
             <motion.div style={styles.formGroup} variants={fieldVariants}>
               <label style={styles.label}>Message</label>
               <textarea
-                style={{...styles.textarea, ...(focusedField === 'message' ? { border: '1px solid #ffffff', boxShadow: '0 0 0 3px rgba(255,255,255,0.1)' } : {})}}
+                style={{...styles.textarea, ...(focusedField === 'message' ? { border: '1px solid #000', boxShadow: '0 0 0 3px rgba(0,0,0,0.06)' } : {})}}
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
@@ -237,7 +237,7 @@ export default function ContactSection() {
               style={styles.submitButton} 
               type="submit"
               variants={fieldVariants}
-              whileHover={{ scale: 1.03, backgroundColor: '#e0e0e0' }}
+              whileHover={{ scale: 1.03, backgroundColor: '#222' }}
               whileTap={{ scale: 0.97 }}
             >
               Send Message
@@ -272,13 +272,13 @@ export default function ContactSection() {
             <div style={styles.infoBlock}>
               <p style={styles.infoLabel}>Follow Us</p>
               <div style={styles.socialsContainer}>
-                <motion.a href="https://github.com/djs-codeai" target="_blank" rel="noreferrer" style={styles.socialIcon} title="GitHub" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} whileHover={{ scale: 1.1, backgroundColor: '#e0e0e0' }}>
+                <motion.a href="https://github.com/djs-codeai" target="_blank" rel="noreferrer" style={styles.socialIcon} title="GitHub" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} whileHover={{ scale: 1.1, backgroundColor: '#333333' }}>
                   <Github size={18} />
                 </motion.a>
-                <motion.a href="https://www.linkedin.com/company/djs-codeai" target="_blank" rel="noreferrer" style={styles.socialIcon} title="LinkedIn" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} whileHover={{ scale: 1.1, backgroundColor: '#e0e0e0' }}>
+                <motion.a href="https://www.linkedin.com/company/djs-codeai" target="_blank" rel="noreferrer" style={styles.socialIcon} title="LinkedIn" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} whileHover={{ scale: 1.1, backgroundColor: '#333333' }}>
                   <Linkedin size={18} />
                 </motion.a>
-                <motion.a href="https://www.instagram.com/djs_codeai" target="_blank" rel="noreferrer" style={styles.socialIcon} title="Instagram" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} whileHover={{ scale: 1.1, backgroundColor: '#e0e0e0' }}>
+                <motion.a href="https://www.instagram.com/djs_codeai" target="_blank" rel="noreferrer" style={styles.socialIcon} title="Instagram" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} whileHover={{ scale: 1.1, backgroundColor: '#333333' }}>
                   <Instagram size={18} />
                 </motion.a>
               </div>
