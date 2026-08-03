@@ -1,0 +1,317 @@
+/* Home.module.css - Plain CSS styling for DJS CodeAI hero landing page */
+
+/* Main container */
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+/* Background Image */
+.backgroundWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.backgroundImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  pointer-events: auto;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+}
+
+/* Logo */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logoIcon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.brandText {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+  letter-spacing: -0.02em;
+}
+
+/* Menu Button */
+.menuButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #000000;
+  border-radius: 9999px;
+  padding: 8px 12px;
+  transition: all 0.2s ease-out;
+}
+
+.menuButton:hover {
+  transform: scale(0.97);
+}
+
+.menuButton:active {
+  transform: scale(0.95);
+}
+
+.menuCircle {
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuText {
+  font-size: 11px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* Tags Pill */
+.tagsPill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #F4F4F6;
+  border-radius: 9999px;
+  padding: 8px 16px;
+}
+
+.tagLabel {
+  font-size: 11px;
+  font-weight: 500;
+  color: #000000;
+}
+
+/* Neural Button (Right side) */
+.neuralButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #F4F4F6;
+  border-radius: 9999px;
+  padding: 8px 12px;
+  transition: all 0.2s ease-out;
+}
+
+.neuralButton:hover {
+  transform: scale(0.97);
+}
+
+.neuralButton:active {
+  transform: scale(0.95);
+}
+
+.neuralCircle {
+  width: 20px;
+  height: 20px;
+  background-color: #000000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.neuralText {
+  font-size: 11px;
+  font-weight: 500;
+  color: #000000;
+}
+
+/* Footer */
+.footerWrapper {
+  position: relative;
+  z-index: 30;
+  padding: 40px 32px;
+  background: linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+}
+
+/* Footer Left Block */
+.footerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Subtitle */
+.subtitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subtitleDot {
+  width: 8px;
+  height: 8px;
+  background-color: #000000;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.subtitleText {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.55);
+  line-height: 1.4;
+}
+
+/* Heading */
+.heading {
+  font-size: clamp(2rem, 8vw, 4.5rem);
+  font-weight: 300;
+  color: #000000;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* Button Group */
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.primaryButton {
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease-out;
+}
+
+.primaryButton:hover {
+  transform: scale(0.97);
+}
+
+.primaryButton:active {
+  transform: scale(0.95);
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: #000000;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 9999px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease-out;
+}
+
+.secondaryButton:hover {
+  transform: scale(0.97);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.secondaryButton:active {
+  transform: scale(0.95);
+}
+
+/* Footer Right Block */
+.footerRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tagPill {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 9999px;
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #000000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1440px) {
+  .navbar {
+    padding: 20px 24px;
+  }
+
+  .footerWrapper {
+    padding: 32px 24px;
+  }
+
+  .footerContent {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 16px 20px;
+  }
+
+  .navLeft {
+    gap: 16px;
+  }
+
+  .footerWrapper {
+    padding: 24px 20px;
+  }
+
+  .footerContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .footerRight {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
