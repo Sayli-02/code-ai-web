@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { motion } from 'motion/react';
+import { Github, Linkedin, Instagram } from 'lucide-react';
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -146,16 +148,32 @@ export default function ContactSection() {
   };
 
   return (
-    <section style={styles.section}>
-      <div style={styles.container}>
-        <h2 style={styles.heading}>Get in Touch</h2>
+    <section id="contact" style={styles.section}>
+      <motion.div 
+        style={styles.container}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <h2 style={{...styles.heading, marginBottom: '16px'}}>Get in Touch</h2>
+        <p style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.75)', lineHeight: '1.6', marginBottom: '48px', maxWidth: '700px' }}>
+          Ready to join our AI community? Have questions about our projects? We'd love to hear from you!
+        </p>
 
         <div style={styles.contentGrid}>
           {/* Contact Form */}
-          <form style={styles.formSection} onSubmit={handleSubmit}>
+          <motion.form 
+            style={styles.formSection} 
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          >
             <div style={styles.formGroup}>
               <label style={styles.label}>Name</label>
-              <input
+              <motion.input
                 style={styles.input}
                 type="text"
                 name="name"
@@ -163,12 +181,13 @@ export default function ContactSection() {
                 onChange={handleChange}
                 placeholder="Your name"
                 required
+                whileFocus={{ borderColor: '#000000', boxShadow: '0 0 0 1px rgba(0,0,0,0.1)' }}
               />
             </div>
 
             <div style={styles.formGroup}>
               <label style={styles.label}>Email</label>
-              <input
+              <motion.input
                 style={styles.input}
                 type="email"
                 name="email"
@@ -176,64 +195,75 @@ export default function ContactSection() {
                 onChange={handleChange}
                 placeholder="your@email.com"
                 required
+                whileFocus={{ borderColor: '#000000', boxShadow: '0 0 0 1px rgba(0,0,0,0.1)' }}
               />
             </div>
 
             <div style={styles.formGroup}>
               <label style={styles.label}>Message</label>
-              <textarea
+              <motion.textarea
                 style={styles.textarea}
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Your message..."
                 required
+                whileFocus={{ borderColor: '#000000', boxShadow: '0 0 0 1px rgba(0,0,0,0.1)' }}
               />
             </div>
 
-            <button style={styles.submitButton} type="submit">
+            <motion.button 
+              style={styles.submitButton} 
+              type="submit"
+              whileHover={{ scale: 1.02, backgroundColor: '#1a1a1a' }}
+              whileTap={{ scale: 0.98 }}
+            >
               Send Message
-            </button>
-          </form>
+            </motion.button>
+          </motion.form>
 
           {/* Contact Info */}
-          <div style={styles.infoSection}>
+          <motion.div 
+            style={styles.infoSection}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+          >
             <div style={styles.infoBlock}>
               <p style={styles.infoLabel}>Email</p>
-              <p style={styles.infoValue}>contact@djscodeai.com</p>
+              <p style={styles.infoValue}>contact.djscodeai@gmail.com</p>
             </div>
 
             <div style={styles.infoBlock}>
               <p style={styles.infoLabel}>Phone</p>
-              <p style={styles.infoValue}>+91 (022) 1234-5678</p>
+              <p style={styles.infoValue}>+91 8104665118</p>
             </div>
 
             <div style={styles.infoBlock}>
               <p style={styles.infoLabel}>Location</p>
               <p style={styles.infoValue}>
-                DJ Sanghvi College of Engineering
-                <br />
-                Vile Parle, Mumbai, India
+                DJ Sanghvi College of Engineering, Mumbai, Maharashtra
               </p>
             </div>
 
             <div style={styles.infoBlock}>
               <p style={styles.infoLabel}>Follow Us</p>
               <div style={styles.socialsContainer}>
-                <a href="#" style={styles.socialIcon} title="GitHub">
-                  🔗
-                </a>
-                <a href="#" style={styles.socialIcon} title="LinkedIn">
-                  💼
-                </a>
-                <a href="#" style={styles.socialIcon} title="Instagram">
-                  📷
-                </a>
+                <motion.a href="https://github.com/djs-codeai" target="_blank" rel="noreferrer" style={styles.socialIcon} title="GitHub" whileHover={{ y: -3, backgroundColor: '#333333' }}>
+                  <Github size={18} />
+                </motion.a>
+                <motion.a href="https://www.linkedin.com/company/djs-codeai" target="_blank" rel="noreferrer" style={styles.socialIcon} title="LinkedIn" whileHover={{ y: -3, backgroundColor: '#333333' }}>
+                  <Linkedin size={18} />
+                </motion.a>
+                <motion.a href="https://www.instagram.com/djs_codeai" target="_blank" rel="noreferrer" style={styles.socialIcon} title="Instagram" whileHover={{ y: -3, backgroundColor: '#333333' }}>
+                  <Instagram size={18} />
+                </motion.a>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

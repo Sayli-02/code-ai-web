@@ -1,40 +1,57 @@
+import { motion } from 'motion/react';
+import { User } from 'lucide-react';
+
 export default function TeamSection() {
   const teamMembers = [
     {
+      id: 'faculty-1',
+      name: 'Dr. Aruna Gawde',
+      role: 'Faculty Sponsor',
+      bio: 'Guiding the community with vast experience in academia and AI research.',
+      photo: '/assets/aruna.jpg',
+    },
+    {
+      id: 'faculty-2',
+      name: 'Prof. Ragini Mishra',
+      role: 'Faculty Sponsor',
+      bio: 'Mentoring students and fostering innovation in machine learning.',
+      photo: '/assets/ragini.jpg',
+    },
+    {
       id: 1,
-      name: 'Aarav Patel',
-      role: 'Club President',
-      bio: 'AI enthusiast passionate about deep learning and computer vision',
+      name: 'Krishil Parikh',
+      role: 'President',
+      bio: 'Leading AI research and club operations with 3+ years in ML.',
     },
     {
       id: 2,
-      name: 'Priya Sharma',
+      name: 'Krisha Maisheri',
       role: 'Vice President',
-      bio: 'Specializes in NLP and generative AI applications',
+      bio: 'Specializing in deep learning and neural network architectures.',
     },
     {
       id: 3,
-      name: 'Rohan Gupta',
-      role: 'Technical Lead',
-      bio: 'Full-stack developer with expertise in ML infrastructure',
+      name: 'Rishee Panchal',
+      role: 'Secretary',
+      bio: 'Full-stack developer with expertise in AI integration.',
     },
     {
       id: 4,
-      name: 'Ananya Desai',
-      role: 'Events Coordinator',
-      bio: 'Organizes workshops and hackathons for the community',
+      name: 'Deep Mehta',
+      role: 'Admin',
+      bio: "Finance enthusiast integrating analytical and coding skills to power tomorrow's financial tools.",
     },
     {
       id: 5,
-      name: 'Vikram Singh',
-      role: 'Research Lead',
-      bio: 'Focused on cutting-edge AI research and publications',
+      name: 'Netra Sangani',
+      role: 'Events Head',
+      bio: 'Great in event management.',
     },
     {
       id: 6,
-      name: 'Neha Kapoor',
-      role: 'Community Manager',
-      bio: 'Builds mentorship programs and community engagement',
+      name: 'Vruddhi Zaveri',
+      role: 'Creatives Head',
+      bio: 'From algorithms to aesthetics, creativity is intelligence having fun.',
     },
   ];
 
@@ -62,30 +79,35 @@ export default function TeamSection() {
     },
     memberCard: {
       textAlign: 'center' as const,
-      transition: 'all 0.2s ease-out',
+      backgroundColor: '#ffffff',
+      border: '1px solid transparent',
+      borderRadius: '12px',
+      padding: '24px 16px',
     },
     memberPlaceholder: {
       width: '120px',
       height: '120px',
-      backgroundColor: '#f0f0f0',
-      borderRadius: '8px',
-      margin: '0 auto 16px',
+      backgroundColor: '#f8f8f8',
+      borderRadius: '50%',
+      margin: '0 auto 20px',
       display: 'flex' as const,
       alignItems: 'center' as const,
       justifyContent: 'center' as const,
       fontSize: '48px',
       color: 'rgba(0, 0, 0, 0.2)',
+      overflow: 'hidden' as const,
     },
     memberName: {
       fontSize: '18px',
-      fontWeight: 500 as const,
+      fontWeight: 600 as const,
       color: '#000000',
       margin: '0 0 4px 0',
+      letterSpacing: '-0.01em',
     },
     memberRole: {
       fontSize: '13px',
-      fontWeight: 500 as const,
-      color: 'rgba(0, 0, 0, 0.5)',
+      fontWeight: 600 as const,
+      color: 'rgba(0, 0, 0, 0.45)',
       margin: '0 0 12px 0',
       textTransform: 'uppercase' as const,
       letterSpacing: '0.05em',
@@ -100,20 +122,52 @@ export default function TeamSection() {
   };
 
   return (
-    <section style={styles.section}>
-      <div style={styles.container}>
+    <section id="team" style={styles.section}>
+      <motion.div 
+        style={styles.container}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <h2 style={styles.heading}>Meet Our Team</h2>
         <div style={styles.teamGrid}>
-          {teamMembers.map((member) => (
-            <div key={member.id} style={styles.memberCard}>
-              <div style={styles.memberPlaceholder}>👤</div>
+          {teamMembers.map((member, index) => (
+            <motion.div 
+              key={member.id} 
+              style={styles.memberCard}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+              whileHover="hover"
+              variants={{ hover: { y: -6, boxShadow: '0 12px 30px rgba(0,0,0,0.08)', borderColor: 'rgba(0,0,0,0.1)' } }}
+            >
+              <div style={styles.memberPlaceholder}>
+                {member.photo ? (
+                  <motion.img 
+                    src={member.photo} 
+                    alt={member.name} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    variants={{ hover: { scale: 1.1 } }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  />
+                ) : (
+                  <motion.div
+                    variants={{ hover: { scale: 1.1 } }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  >
+                    <User size={48} color="rgba(0,0,0,0.2)" />
+                  </motion.div>
+                )}
+              </div>
               <h3 style={styles.memberName}>{member.name}</h3>
               <p style={styles.memberRole}>{member.role}</p>
               <p style={styles.memberBio}>{member.bio}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

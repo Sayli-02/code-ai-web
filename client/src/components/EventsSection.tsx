@@ -1,36 +1,39 @@
+import { motion } from 'motion/react';
+import { Calendar, MapPin } from 'lucide-react';
+
 export default function EventsSection() {
   const events = [
     {
       id: 1,
-      title: 'Introduction to Deep Learning',
-      status: 'Open',
-      description: 'Learn the fundamentals of neural networks and deep learning architectures',
-      date: 'August 15, 2026',
-      venue: 'Room 301, Engineering Block',
+      title: 'Roadmap to Becoming an AI Engineer',
+      status: 'Registration Closed',
+      description: 'Seminar guiding students toward becoming AI engineers, with expert mentors',
+      date: 'August 5, 2025, 11:00 AM–1:00 PM',
+      venue: 'Seminar Hall',
     },
     {
       id: 2,
-      title: 'GenAI Workshop: Building with LLMs',
-      status: 'Open',
-      description: 'Hands-on session on leveraging large language models for real-world applications',
-      date: 'August 22, 2026',
-      venue: 'Auditorium, Main Campus',
+      title: 'CODEQUEST 2025',
+      status: 'Registration Closed',
+      description: 'Hybrid hackathon introducing juniors to the full hackathon experience with mentorship and pitching',
+      date: 'October 5–12, 2025',
+      venue: 'Hybrid',
     },
     {
       id: 3,
-      title: 'AI Ethics & Responsible AI',
-      status: 'Save the Date',
-      description: 'Explore ethical considerations and best practices in AI development',
-      date: 'September 5, 2026',
-      venue: 'Room 401, Engineering Block',
+      title: 'CodeVerse 1.0',
+      status: 'Registration Open',
+      description: 'Flagship offline AI challenge with real-world debugging and data-driven problem-solving tasks',
+      date: 'November 8, 2025, 8:00 AM–6:00 PM',
+      venue: '4th Floor, AIML Department',
     },
     {
       id: 4,
-      title: 'Hackathon 2026: AI Solutions Challenge',
-      status: 'Closed',
-      description: 'Build innovative AI solutions to real-world problems in 24 hours',
-      date: 'September 20-21, 2026',
-      venue: 'Campus Grounds',
+      title: 'Hackathon: AI for Good',
+      status: 'Save the Date',
+      description: '48-hour hackathon developing AI solutions for social good and sustainability',
+      date: 'June 1–3, 2025',
+      venue: 'Innovation Center',
     },
   ];
 
@@ -59,9 +62,8 @@ export default function EventsSection() {
     eventCard: {
       backgroundColor: '#ffffff',
       border: '1px solid rgba(0, 0, 0, 0.1)',
-      borderRadius: '8px',
+      borderRadius: '12px',
       padding: '24px',
-      transition: 'all 0.2s ease-out',
     },
     eventHeader: {
       display: 'flex' as const,
@@ -71,20 +73,22 @@ export default function EventsSection() {
       gap: '12px',
     },
     eventTitle: {
-      fontSize: '18px',
-      fontWeight: 500 as const,
+      fontSize: '19px',
+      fontWeight: 600 as const,
       color: '#000000',
       margin: 0,
+      letterSpacing: '-0.01em',
     },
     statusBadge: (status: string) => ({
       display: 'inline-block' as const,
       padding: '4px 12px',
       borderRadius: '9999px',
       fontSize: '11px',
-      fontWeight: 500 as const,
+      fontWeight: 600 as const,
       whiteSpace: 'nowrap' as const,
-      backgroundColor: status === 'Open' ? '#000000' : status === 'Closed' ? '#e0e0e0' : '#f0f0f0',
-      color: status === 'Open' ? '#ffffff' : '#000000',
+      backgroundColor: status === 'Registration Open' ? '#000000' : 'transparent',
+      color: status === 'Registration Open' ? '#ffffff' : 'rgba(0, 0, 0, 0.6)',
+      border: status === 'Registration Open' ? '1px solid #000000' : '1px solid rgba(0, 0, 0, 0.2)',
     }),
     eventDescription: {
       fontSize: '14px',
@@ -112,12 +116,30 @@ export default function EventsSection() {
   };
 
   return (
-    <section style={styles.section}>
-      <div style={styles.container}>
+    <section id="events" style={styles.section}>
+      <motion.div 
+        style={styles.container}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <h2 style={styles.heading}>Upcoming Events</h2>
         <div style={styles.eventsGrid}>
-          {events.map((event) => (
-            <div key={event.id} style={styles.eventCard}>
+          {events.map((event, index) => (
+            <motion.div 
+              key={event.id} 
+              style={styles.eventCard}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+              whileHover={{ 
+                y: -6, 
+                boxShadow: '0 12px 30px rgba(0,0,0,0.08)',
+                borderColor: 'rgba(0,0,0,0.25)' 
+              }}
+            >
               <div style={styles.eventHeader}>
                 <h3 style={styles.eventTitle}>{event.title}</h3>
                 <span style={styles.statusBadge(event.status)}>{event.status}</span>
@@ -125,18 +147,18 @@ export default function EventsSection() {
               <p style={styles.eventDescription}>{event.description}</p>
               <div style={styles.eventMeta}>
                 <div style={styles.metaItem}>
-                  <span style={styles.metaLabel}>📅</span>
+                  <Calendar size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
                   <span>{event.date}</span>
                 </div>
                 <div style={styles.metaItem}>
-                  <span style={styles.metaLabel}>📍</span>
+                  <MapPin size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
                   <span>{event.venue}</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

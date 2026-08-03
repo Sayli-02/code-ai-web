@@ -1,148 +1,198 @@
-import { motion } from 'motion/react';
-import { Plus } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import AboutSection from '@/components/AboutSection';
 import EventsSection from '@/components/EventsSection';
 import TeamSection from '@/components/TeamSection';
 import ContactSection from '@/components/ContactSection';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const easeCustom: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function Home() {
+  const { scrollY } = useScroll();
+  const backgroundY = useTransform(scrollY, [0, 800], ['0%', '30%']);
+  const backgroundOpacity = useTransform(scrollY, [0, 600], [1, 0.3]);
+
+  const [stage, setStage] = useState<'bg' | 'hand' | 'brain' | 'content' | 'done'>('bg');
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setStage('done');
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setStage('done');
+    }, 7000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (stage === 'done') {
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
+      return;
+    }
+
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    const preventDefault = (e: Event) => e.preventDefault();
+    const preventKeyScroll = (e: KeyboardEvent) => {
+      if (['Space', 'PageUp', 'PageDown', 'End', 'Home', 'ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].includes(e.code)) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('wheel', preventDefault, { passive: false });
+    window.addEventListener('touchmove', preventDefault, { passive: false });
+    window.addEventListener('keydown', preventKeyScroll, { passive: false });
+
+    return () => {
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
+      window.removeEventListener('wheel', preventDefault);
+      window.removeEventListener('touchmove', preventDefault);
+      window.removeEventListener('keydown', preventKeyScroll);
+    };
+  }, [stage]);
+
+  useEffect(() => {
+    if (stage === 'brain') {
+      const timer = setTimeout(() => setStage('content'), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [stage]);
+
   return (
     <div style={styles.container}>
       {/* Background Image with Ken Burns effect */}
       <motion.div
         style={styles.backgroundWrapper}
         initial={{ opacity: 0, scale: 1.05 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.8, ease: easeCustom as any }}
+        animate={stage === 'done' ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
+        transition={stage === 'done' ? { duration: 0 } : { duration: 1.8, ease: easeCustom as any }}
+        onAnimationComplete={() => { if (stage === 'bg') setStage('hand'); }}
       >
-        <img
-          src="/manus-storage/hero-background_fdbaa813.png"
-          alt="Hero Background"
-          style={styles.backgroundImage}
-        />
+        <motion.div style={{ ...styles.imageWrapper, y: backgroundY, opacity: backgroundOpacity }}>
+          <img
+            src="/assets/hero-background.png"
+            alt="Hero Background"
+            style={styles.backgroundImage}
+          />
+          <motion.img
+            src="/assets/hand.png"
+            alt="Robotic Hand"
+            style={styles.animatedHand}
+            initial={{ y: 150, opacity: 0 }}
+            animate={stage === 'done' ? { y: 0, opacity: 1 } : (stage === 'bg' ? { y: 150, opacity: 0 } : { y: 0, opacity: 1 })}
+            transition={stage === 'done' ? { duration: 0 } : { duration: 2.4, ease: easeCustom as any }}
+            onAnimationComplete={() => { if (stage === 'hand') setStage('brain'); }}
+          />
+          <motion.img
+            src="/assets/brain.png"
+            alt="Animated Brain"
+            style={styles.animatedBrain}
+            initial={{ opacity: 0, scale: 0.9, rotate: 0 }}
+            animate={
+              stage === 'done'
+                ? { opacity: 1, scale: 1, rotate: 360 }
+                : (stage === 'bg' || stage === 'hand')
+                ? { opacity: 0, scale: 0.9, rotate: 0 }
+                : { opacity: 1, scale: 1, rotate: 360 }
+            }
+            transition={
+              stage === 'done'
+                ? { rotate: { duration: 8, repeat: Infinity, ease: "linear" } }
+                : {
+                    default: { duration: 0.6, ease: easeCustom as any },
+                    rotate: { duration: 8, repeat: Infinity, ease: "linear" }
+                  }
+            }
+          />
+        </motion.div>
       </motion.div>
 
-      {/* Navbar */}
-      <motion.nav
-        style={styles.navbar}
-        initial={{ y: -16, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: easeCustom as any }}
-      >
-        {/* Left side */}
-        <div style={styles.navLeft}>
-          {/* Logo */}
-          <div style={styles.logoContainer}>
-            <img
-              src="/manus-storage/logo_1582de0e.png"
-              alt="DJS CodeAI Logo"
-              style={styles.logoIcon}
-            />
-            <span style={styles.brandText}>DJS CodeAI</span>
-          </div>
+      <Header />
 
-          {/* Menu button */}
-          <button style={styles.menuButton}>
-            <div style={styles.menuCircle}>
-              <Plus size={12} strokeWidth={3} color="white" />
+      {/* Hero Section Container */}
+      <div style={styles.heroSection}>
+        {/* Footer Content */}
+        <motion.footer
+          style={styles.footerWrapper}
+          initial={{ y: 20, opacity: 0 }}
+          animate={stage === 'done' || stage === 'content' ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+          transition={stage === 'done' ? { duration: 0 } : { duration: 1, ease: easeCustom as any }}
+        >
+          <div style={styles.footerContent}>
+            {/* Left block */}
+            <div style={styles.footerLeft}>
+              {/* Subtitle */}
+              <motion.div
+                style={styles.subtitle}
+                initial={{ y: 16, opacity: 0 }}
+                animate={stage === 'done' || stage === 'content' ? { y: 0, opacity: 1 } : { y: 16, opacity: 0 }}
+                transition={stage === 'done' ? { duration: 0 } : { duration: 0.8, delay: 0.2, ease: easeCustom as any }}
+              >
+                <div style={styles.subtitleDot} />
+                <span style={styles.subtitleText}>
+                  Official AI Club of DJ Sanghvi College of Engineering
+                </span>
+              </motion.div>
+
+              {/* Heading */}
+              <motion.h1
+                style={styles.heading}
+                initial={{ y: 20, opacity: 0 }}
+                animate={stage === 'done' || stage === 'content' ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+                transition={stage === 'done' ? { duration: 0 } : { duration: 0.8, delay: 0.4, ease: easeCustom as any }}
+              >
+                Welcome to<br />DJS CodeAI.
+              </motion.h1>
+
+              {/* Buttons */}
+              <motion.div
+                style={styles.buttonGroup}
+                initial={{ y: 16, opacity: 0 }}
+                animate={stage === 'done' || stage === 'content' ? { y: 0, opacity: 1 } : { y: 16, opacity: 0 }}
+                transition={stage === 'done' ? { duration: 0 } : { duration: 0.8, delay: 0.6, ease: easeCustom as any }}
+                onAnimationComplete={() => { if (stage === 'content') setStage('done'); }}
+              >
+                <button style={styles.primaryButton}>
+                  Explore Projects
+                </button>
+                <button style={styles.secondaryButton}>
+                  Meet the Team
+                </button>
+              </motion.div>
             </div>
-            <span style={styles.menuText}>Menu</span>
-          </button>
 
-          {/* Tags pill */}
-          <div style={styles.tagsPill}>
-            <span style={styles.tagLabel}>Artificial Intelligence</span>
-            <span style={styles.tagLabel}>Machine Learning</span>
-          </div>
-        </div>
-
-        {/* Right side */}
-        <div style={styles.navRight}>
-          <button style={styles.neuralButton}>
-            <div style={styles.neuralCircle}>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <circle cx="4" cy="4" r="1.5" fill="black" />
-                <circle cx="12" cy="4" r="1.5" fill="black" />
-                <circle cx="4" cy="12" r="1.5" fill="black" />
-                <circle cx="12" cy="12" r="1.5" fill="black" />
-              </svg>
+            {/* Right block */}
+            <div style={styles.footerRight}>
+              <div style={styles.tagPill}>Deep Learning</div>
+              <div style={styles.tagPill}>GenAI</div>
+              <div style={styles.tagPill}>Research</div>
             </div>
-            <span style={styles.neuralText}>Neural Systems</span>
-          </button>
-        </div>
-      </motion.nav>
-
-      {/* Footer Content */}
-      <motion.footer
-        style={styles.footerWrapper}
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, delay: 0.5, ease: easeCustom as any }}
-      >
-        <div style={styles.footerContent}>
-          {/* Left block */}
-          <div style={styles.footerLeft}>
-            {/* Subtitle */}
-            <motion.div
-              style={styles.subtitle}
-              initial={{ y: 16, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: easeCustom as any }}
-            >
-              <div style={styles.subtitleDot} />
-              <span style={styles.subtitleText}>
-                Official AI Club of DJ Sanghvi College of Engineering
-              </span>
-            </motion.div>
-
-            {/* Heading */}
-            <motion.h1
-              style={styles.heading}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.8, ease: easeCustom as any }}
-            >
-              Welcome to<br />DJS CodeAI.
-            </motion.h1>
-
-            {/* Buttons */}
-            <motion.div
-              style={styles.buttonGroup}
-              initial={{ y: 16, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.0, ease: easeCustom as any }}
-            >
-              <button style={styles.primaryButton}>
-                Explore Projects
-              </button>
-              <button style={styles.secondaryButton}>
-                Meet the Team
-              </button>
-            </motion.div>
           </div>
+        </motion.footer>
+      </div>
 
-          {/* Right block */}
-          <div style={styles.footerRight}>
-            <div style={styles.tagPill}>Deep Learning</div>
-            <div style={styles.tagPill}>GenAI</div>
-            <div style={styles.tagPill}>Research</div>
-          </div>
-        </div>
-      </motion.footer>
+      <div style={styles.contentSections}>
+        {/* About Section */}
+        <AboutSection />
 
-      {/* About Section */}
-      <AboutSection />
+        {/* Events Section */}
+        <EventsSection />
 
-      {/* Events Section */}
-      <EventsSection />
+        {/* Team Section */}
+        <TeamSection />
 
-      {/* Team Section */}
-      <TeamSection />
-
-      {/* Contact Section */}
-      <ContactSection />
+        {/* Contact Section */}
+        <ContactSection />
+        <Footer />
+      </div>
     </div>
   );
 }
@@ -150,13 +200,22 @@ export default function Home() {
 const styles = {
   container: {
     position: 'relative' as const,
-    display: 'flex' as const,
-    flexDirection: 'column' as const,
-    justifyContent: 'space-between' as const,
-    minHeight: '100vh',
     width: '100%',
     backgroundColor: 'transparent',
-    overflow: 'visible' as const,
+    overflowX: 'hidden' as const,
+  },
+  heroSection: {
+    position: 'relative' as const,
+    width: '100%',
+    minHeight: '100vh',
+    display: 'flex' as const,
+    flexDirection: 'column' as const,
+    justifyContent: 'flex-end' as const,
+  },
+  contentSections: {
+    position: 'relative' as const,
+    zIndex: 10,
+    backgroundColor: '#ffffff',
   },
   backgroundWrapper: {
     position: 'fixed' as const,
@@ -170,119 +229,40 @@ const styles = {
     alignItems: 'center' as const,
     justifyContent: 'center' as const,
     pointerEvents: 'none' as const,
+    overflow: 'hidden' as const,
+  },
+  imageWrapper: {
+    position: 'relative' as const,
+    aspectRatio: '647 / 555',
+    height: '75%',
   },
   backgroundImage: {
-    maxWidth: '100%',
-    maxHeight: '100%',
-    width: 'auto',
-    height: 'auto',
+    width: '100%',
+    height: '100%',
     objectFit: 'contain' as const,
-    objectPosition: 'center' as const,
   },
-  navbar: {
-    position: 'fixed' as const,
+  animatedHand: {
+    position: 'absolute' as const,
     top: 0,
     left: 0,
-    right: 0,
-    zIndex: 50,
-    padding: '24px 32px',
-    display: 'flex' as const,
-    justifyContent: 'space-between' as const,
-    alignItems: 'center' as const,
-    pointerEvents: 'none' as const,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    backdropFilter: 'blur(8px)',
-  },
-  navLeft: {
-    display: 'flex' as const,
-    alignItems: 'center' as const,
-    gap: '24px',
-    pointerEvents: 'auto' as const,
-  },
-  navRight: {
-    display: 'flex' as const,
-    alignItems: 'center' as const,
-    pointerEvents: 'auto' as const,
-  },
-  logoContainer: {
-    display: 'flex' as const,
-    alignItems: 'center' as const,
-    gap: '8px',
-  },
-  logoIcon: {
-    width: '32px',
-    height: '32px',
+    width: '100%',
+    height: '100%',
     objectFit: 'contain' as const,
+    transform: 'rotate(180deg)',
+    pointerEvents: 'none' as const,
+    zIndex: 2,
   },
-  brandText: {
-    fontSize: '14px',
-    fontWeight: 600 as const,
-    color: '#000000',
-    letterSpacing: '-0.02em',
+  animatedBrain: {
+    position: 'absolute' as const,
+    top: '2%',
+    left: '74%',
+    transform: 'translate(-50%, -50%)',
+    width: '35%',
+    height: 'auto',
+    pointerEvents: 'none' as const,
+    zIndex: 5,
   },
-  menuButton: {
-    display: 'flex' as const,
-    alignItems: 'center' as const,
-    gap: '8px',
-    backgroundColor: '#000000',
-    borderRadius: '9999px',
-    padding: '8px 12px',
-    transition: 'all 0.2s ease-out',
-    border: 'none',
-    cursor: 'pointer',
-  },
-  menuCircle: {
-    width: '20px',
-    height: '20px',
-    backgroundColor: '#ffffff',
-    borderRadius: '50%',
-    display: 'flex' as const,
-    alignItems: 'center' as const,
-    justifyContent: 'center' as const,
-  },
-  menuText: {
-    fontSize: '11px',
-    fontWeight: 500 as const,
-    color: '#ffffff',
-  },
-  tagsPill: {
-    display: 'flex' as const,
-    alignItems: 'center' as const,
-    gap: '12px',
-    backgroundColor: '#F4F4F6',
-    borderRadius: '9999px',
-    padding: '8px 16px',
-  },
-  tagLabel: {
-    fontSize: '11px',
-    fontWeight: 500 as const,
-    color: '#000000',
-  },
-  neuralButton: {
-    display: 'flex' as const,
-    alignItems: 'center' as const,
-    gap: '8px',
-    backgroundColor: '#F4F4F6',
-    borderRadius: '9999px',
-    padding: '8px 12px',
-    transition: 'all 0.2s ease-out',
-    border: 'none',
-    cursor: 'pointer',
-  },
-  neuralCircle: {
-    width: '20px',
-    height: '20px',
-    backgroundColor: '#000000',
-    borderRadius: '50%',
-    display: 'flex' as const,
-    alignItems: 'center' as const,
-    justifyContent: 'center' as const,
-  },
-  neuralText: {
-    fontSize: '11px',
-    fontWeight: 500 as const,
-    color: '#000000',
-  },
+
   footerWrapper: {
     position: 'relative' as const,
     zIndex: 10,

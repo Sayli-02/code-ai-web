@@ -1,4 +1,14 @@
+import React from 'react';
+import { motion } from 'motion/react';
+import { CheckCircle2 } from 'lucide-react';
+
 export default function AboutSection() {
+  const bullets = [
+    'Practical application of theoretical knowledge',
+    'Building industry-ready skills',
+    'Research and project development'
+  ];
+
   const styles = {
     section: {
       padding: '80px 32px',
@@ -11,18 +21,27 @@ export default function AboutSection() {
     },
     heading: {
       fontSize: '2.5rem',
-      fontWeight: 300 as const,
+      fontWeight: 400 as const,
       color: '#000000',
       marginBottom: '32px',
-      letterSpacing: '-0.02em',
+      letterSpacing: '-0.03em',
     },
     paragraph: {
+      fontSize: '22px',
+      fontWeight: 300 as const,
+      color: 'rgba(0, 0, 0, 0.8)',
+      lineHeight: '1.5',
+      marginBottom: '56px',
+      maxWidth: '850px',
+      letterSpacing: '-0.01em',
+    },
+    subParagraph: {
       fontSize: '16px',
       fontWeight: 400 as const,
-      color: 'rgba(0, 0, 0, 0.75)',
+      color: 'rgba(0, 0, 0, 0.65)',
       lineHeight: '1.6',
-      marginBottom: '40px',
-      maxWidth: '700px',
+      marginBottom: '32px',
+      maxWidth: '600px',
     },
     bulletsContainer: {
       display: 'grid' as const,
@@ -33,14 +52,15 @@ export default function AboutSection() {
     bulletItem: {
       display: 'flex' as const,
       gap: '16px',
+      backgroundColor: '#fbfbfb',
+      padding: '24px',
+      borderRadius: '12px',
+      border: '1px solid rgba(0,0,0,0.05)',
+      boxShadow: '0 4px 20px rgba(0,0,0,0.02)',
+      alignItems: 'flex-start' as const,
     },
     bulletDot: {
-      width: '8px',
-      height: '8px',
-      backgroundColor: '#000000',
-      borderRadius: '50%',
-      marginTop: '8px',
-      flexShrink: 0,
+      display: 'none',
     },
     bulletText: {
       fontSize: '15px',
@@ -62,42 +82,63 @@ export default function AboutSection() {
   };
 
   return (
-    <section style={styles.section}>
-      <div style={styles.container}>
+    <section id="about" style={styles.section}>
+      <motion.div 
+        style={styles.container}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <h2 style={styles.heading}>About DJS CodeAI</h2>
         <p style={styles.paragraph}>
-          DJS CodeAI is a student-led artificial intelligence and machine learning community at DJ Sanghvi College of Engineering. We are dedicated to fostering innovation, learning, and collaboration among students passionate about AI/ML technologies. Through hands-on projects, mentorship, and workshops, we empower students to build real-world solutions and advance their technical expertise.
+          DJS CodeAI is a student-led community at DJ Sanghvi College of Engineering dedicated to exploring artificial intelligence and coding, bringing together students to learn, build, and innovate together.
         </p>
 
-        <div style={styles.bulletsContainer}>
-          <div style={styles.bulletItem}>
-            <div style={styles.bulletDot} />
-            <div>
-              <p style={styles.bulletText}>
-                <strong>Hands-On Projects</strong> — Build real-world AI/ML applications and contribute to open-source initiatives
-              </p>
-            </div>
-          </div>
-          <div style={styles.bulletItem}>
-            <div style={styles.bulletDot} />
-            <div>
-              <p style={styles.bulletText}>
-                <strong>Mentorship Program</strong> — Learn from experienced practitioners and industry professionals
-              </p>
-            </div>
-          </div>
-          <div style={styles.bulletItem}>
-            <div style={styles.bulletDot} />
-            <div>
-              <p style={styles.bulletText}>
-                <strong>Workshops & Events</strong> — Regular sessions on cutting-edge AI/ML topics and best practices
-              </p>
-            </div>
-          </div>
+        <div style={{ paddingLeft: '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }}>
+          <h3 style={{...styles.heading, fontSize: '1.75rem', marginBottom: '16px'}}>Our Vision</h3>
+          <p style={styles.subParagraph}>
+            Bridging theoretical knowledge and practical application through real projects and mentorship.
+          </p>
         </div>
 
-        <button style={styles.ctaButton}>Get Involved</button>
-      </div>
+        <div style={styles.bulletsContainer}>
+          {bullets.map((bullet, index) => (
+            <motion.div 
+              key={index}
+              style={styles.bulletItem}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+              whileHover="hover"
+              variants={{ hover: { y: -4, boxShadow: '0 12px 30px rgba(0,0,0,0.06)', borderColor: 'rgba(0,0,0,0.1)' } }}
+            >
+              <motion.div variants={{ hover: { scale: 1.2, rotate: 5 } }} transition={{ type: "spring", stiffness: 400 }}>
+                <CheckCircle2 size={20} color="#000000" style={{ flexShrink: 0, marginTop: '2px' }} />
+              </motion.div>
+              <div>
+                <p style={styles.bulletText}>{bullet}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div style={{ paddingLeft: '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }}>
+          <h3 style={{...styles.heading, fontSize: '1.75rem', marginBottom: '16px'}}>Mentor-Mentee System</h3>
+          <p style={styles.subParagraph}>
+            A structured mentor-mentee pairing system designed for hands-on guidance and continuous learning.
+          </p>
+        </div>
+
+        <motion.button 
+          style={styles.ctaButton}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Get Involved
+        </motion.button>
+      </motion.div>
     </section>
   );
 }
