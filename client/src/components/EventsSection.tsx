@@ -53,7 +53,7 @@ export default function EventsSection() {
     heading: {
       fontSize: isMobile ? '2rem' : '2.5rem',
       fontWeight: 300 as const,
-      color: '#ffffff',
+      color: '#000000',
       marginBottom: '48px',
       letterSpacing: '-0.02em',
     },

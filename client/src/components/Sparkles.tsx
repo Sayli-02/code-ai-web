@@ -46,9 +46,9 @@ export default function Sparkles() {
             left: sparkle.left,
             width: `${sparkle.size}px`,
             height: `${sparkle.size}px`,
-            backgroundColor: '#E5E4E2', // Silver metallic
+            backgroundColor: '#333333', // Dark charcoal/silver
             borderRadius: '50%',
-            boxShadow: '0 0 4px 1px rgba(229, 228, 226, 0.4)',
+            boxShadow: '0 0 4px 1px rgba(0, 0, 0, 0.2)',
           }}
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{

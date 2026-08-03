@@ -31,20 +31,20 @@ export default function AboutSection() {
       top: '10px',
       height: '80%',
       width: '3px',
-      background: 'linear-gradient(to bottom, #ffffff 0%, transparent 100%)',
+      background: 'linear-gradient(to bottom, #111 0%, transparent 100%)',
       borderRadius: '4px',
     },
     heading: {
       fontSize: isMobile ? '2rem' : '2.5rem',
       fontWeight: 400 as const,
-      color: '#ffffff',
+      color: '#000000',
       marginBottom: '32px',
       letterSpacing: '-0.03em',
     },
     paragraph: {
       fontSize: isMobile ? '18px' : '22px',
       fontWeight: 300 as const,
-      color: 'rgba(255, 255, 255, 0.8)',
+      color: 'rgba(0, 0, 0, 0.8)',
       lineHeight: '1.5',
       marginBottom: '56px',
       maxWidth: '850px',
@@ -53,7 +53,7 @@ export default function AboutSection() {
     subParagraph: {
       fontSize: isMobile ? '15px' : '16px',
       fontWeight: 400 as const,
-      color: 'rgba(255, 255, 255, 0.65)',
+      color: 'rgba(0, 0, 0, 0.65)',
       lineHeight: '1.6',
       marginBottom: '32px',
       maxWidth: '600px',
@@ -84,8 +84,8 @@ export default function AboutSection() {
       lineHeight: '1.5',
     },
     ctaButton: {
-      backgroundColor: '#ffffff',
-      color: '#000000',
+      backgroundColor: '#000000',
+      color: '#ffffff',
       border: 'none',
       borderRadius: '9999px',
       padding: '12px 32px',
@@ -122,7 +122,7 @@ export default function AboutSection() {
           DJS CodeAI is a student-led community at DJ Sanghvi College of Engineering dedicated to exploring artificial intelligence and coding, bringing together students to learn, build, and innovate together.
         </p>
 
-        <div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid #ffffff', marginBottom: '48px' }}>
+        <div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }}>
           <h3 style={{...styles.heading, fontSize: isMobile ? '1.5rem' : '1.75rem', marginBottom: '16px'}}>Our Vision</h3>
           <p style={styles.subParagraph}>
             Bridging theoretical knowledge and practical application through real projects and mentorship.
@@ -155,7 +155,7 @@ export default function AboutSection() {
           ))}
         </motion.div>
 
-        <div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid #ffffff', marginBottom: '48px' }}>
+        <div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }}>
           <h3 style={{...styles.heading, fontSize: isMobile ? '1.5rem' : '1.75rem', marginBottom: '16px'}}>Mentor-Mentee System</h3>
           <p style={styles.subParagraph}>
             A structured mentor-mentee pairing system designed for hands-on guidance and continuous learning.

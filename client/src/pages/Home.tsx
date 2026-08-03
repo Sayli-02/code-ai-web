@@ -222,7 +222,7 @@ const getStyles = (isMobile: boolean) => ({
   contentSections: {
     position: 'relative' as const,
     zIndex: 10,
-    backgroundColor: '#000000',
+    backgroundColor: '#ffffff',
   },
   backgroundWrapper: {
     position: 'fixed' as const,
