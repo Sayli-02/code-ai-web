@@ -3,10 +3,13 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useIsMobile } from '@/hooks/useMobile';
 import AboutSection from '@/components/AboutSection';
 import EventsSection from '@/components/EventsSection';
+import ProjectsSection from '@/components/ProjectsSection';
 import TeamSection from '@/components/TeamSection';
 import ContactSection from '@/components/ContactSection';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ScrollProgress from '@/components/ScrollProgress';
+import StatsSection from '@/components/StatsSection';
 
 const easeCustom: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -72,6 +75,7 @@ export default function Home() {
 
   return (
     <div id="home" style={styles.container}>
+      <ScrollProgress />
       {/* Background Image with Ken Burns effect */}
       <motion.div
         style={styles.backgroundWrapper}
@@ -164,9 +168,14 @@ export default function Home() {
                 transition={stage === 'done' ? { duration: 0 } : { duration: 0.8, delay: 0.6, ease: easeCustom as any }}
                 onAnimationComplete={() => { if (stage === 'content') setStage('done'); }}
               >
-                <button style={styles.primaryButton}>
+                <motion.a 
+                  href="#projects"
+                  style={{ ...styles.primaryButton, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   Explore Projects
-                </button>
+                </motion.a>
                 <motion.a 
                   href="#team"
                   style={{ ...styles.secondaryButton, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
@@ -189,11 +198,17 @@ export default function Home() {
       </div>
 
       <div style={styles.contentSections}>
+        {/* Stats Section */}
+        <StatsSection />
+
         {/* About Section */}
         <AboutSection />
 
         {/* Events Section */}
         <EventsSection />
+
+        {/* Projects Section */}
+        <ProjectsSection />
 
         {/* Team Section */}
         <TeamSection />

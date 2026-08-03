@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Plus, Menu, X } from 'lucide-react';
 import { useIsMobile } from '@/hooks/useMobile';
@@ -8,7 +8,32 @@ const easeCustom: [number, number, number, number] = [0.16, 1, 0.3, 1];
 export default function Header() {
   const isMobile = useIsMobile();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
+  
   const { scrollY } = useScroll();
+
+  useEffect(() => {
+    const sectionIds = ['home', 'about', 'events', 'projects', 'team', 'contact'];
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-30% 0px -70% 0px' }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   // Map scroll values to colors: past ~600px switches to light mode
   const navLinkColor = useTransform(scrollY, [500, 600], ['#ffffff', '#000000']);
   const navBgColor = useTransform(scrollY, [500, 600], ['rgba(255, 255, 255, 0.1)', 'rgba(255, 255, 255, 0.95)']);
@@ -160,11 +185,42 @@ export default function Header() {
           {/* Navbar Links */}
           {!isMobile && (
             <motion.div style={{ ...styles.navLinks, backgroundColor: navBgColor, border: navBorder as any, boxShadow: navShadow as any }}>
-              <motion.a whileHover={{ opacity: 1 }} href="#home" style={{ ...styles.navLink, color: navLinkColor }}>Home</motion.a>
-              <motion.a whileHover={{ opacity: 1 }} href="#about" style={{ ...styles.navLink, color: navLinkColor }}>About</motion.a>
-              <motion.a whileHover={{ opacity: 1 }} href="#events" style={{ ...styles.navLink, color: navLinkColor }}>Events</motion.a>
-              <motion.a whileHover={{ opacity: 1 }} href="#team" style={{ ...styles.navLink, color: navLinkColor }}>Team</motion.a>
-              <motion.a whileHover={{ opacity: 1 }} href="#contact" style={{ ...styles.navLink, color: navLinkColor }}>Contact</motion.a>
+              {[
+                { id: 'home', label: 'Home' },
+                { id: 'about', label: 'About' },
+                { id: 'events', label: 'Events' },
+                { id: 'projects', label: 'Projects' },
+                { id: 'team', label: 'Team' },
+                { id: 'contact', label: 'Contact' }
+              ].map((item) => (
+                <motion.a 
+                  key={item.id} 
+                  whileHover={{ opacity: 1 }} 
+                  href={`#${item.id}`} 
+                  style={{ 
+                    ...styles.navLink, 
+                    color: navLinkColor, 
+                    position: 'relative',
+                    opacity: activeSection === item.id ? 1 : 0.8
+                  }}
+                >
+                  {item.label}
+                  {activeSection === item.id && (
+                    <motion.div
+                      layoutId="activeTab"
+                      style={{
+                        position: 'absolute',
+                        bottom: '-4px',
+                        left: 0,
+                        right: 0,
+                        height: '2px',
+                        backgroundColor: 'currentColor',
+                        borderRadius: '2px'
+                      }}
+                    />
+                  )}
+                </motion.a>
+              ))}
             </motion.div>
           )}
         </div>
@@ -208,6 +264,7 @@ export default function Header() {
           <a href="#home" onClick={() => setIsMobileMenuOpen(false)} style={styles.mobileLink}>Home</a>
           <a href="#about" onClick={() => setIsMobileMenuOpen(false)} style={styles.mobileLink}>About</a>
           <a href="#events" onClick={() => setIsMobileMenuOpen(false)} style={styles.mobileLink}>Events</a>
+          <a href="#projects" onClick={() => setIsMobileMenuOpen(false)} style={styles.mobileLink}>Projects</a>
           <a href="#team" onClick={() => setIsMobileMenuOpen(false)} style={styles.mobileLink}>Team</a>
           <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} style={{ ...styles.mobileLink, borderBottom: 'none' }}>Contact</a>
         </motion.div>

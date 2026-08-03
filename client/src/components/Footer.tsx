@@ -108,13 +108,13 @@ export default function Footer() {
               <motion.a href="#home" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Home</motion.a>
               <motion.a href="#about" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>About Us</motion.a>
               <motion.a href="#events" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Events</motion.a>
-              <motion.a href="#" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Projects</motion.a>
+              <motion.a href="#projects" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Projects</motion.a>
             </div>
             <div style={styles.linkColumn}>
               <span style={styles.linkHeading}>Connect</span>
-              <motion.a href="#" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Team</motion.a>
-              <motion.a href="#" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Contact</motion.a>
-              <motion.a href="#" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Join Us</motion.a>
+              <motion.a href="#team" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Team</motion.a>
+              <motion.a href="#contact" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Contact</motion.a>
+              <motion.a href="#contact" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Join Us</motion.a>
             </div>
           </div>
         </div>
