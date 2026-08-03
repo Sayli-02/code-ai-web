@@ -142,7 +142,7 @@ export default function TeamSection() {
         style={styles.container}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <h2 style={styles.heading}>Meet Our Team</h2>
@@ -151,7 +151,7 @@ export default function TeamSection() {
           variants={gridVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: false, margin: "-50px" }}
         >
           {teamMembers.map((member, index) => (
             <motion.div 

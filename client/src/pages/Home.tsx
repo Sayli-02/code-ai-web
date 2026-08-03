@@ -71,7 +71,7 @@ export default function Home() {
   const styles = getStyles(isMobile);
 
   return (
-    <div style={styles.container}>
+    <div id="home" style={styles.container}>
       {/* Background Image with Ken Burns effect */}
       <motion.div
         style={styles.backgroundWrapper}
@@ -167,9 +167,14 @@ export default function Home() {
                 <button style={styles.primaryButton}>
                   Explore Projects
                 </button>
-                <button style={styles.secondaryButton}>
+                <motion.a 
+                  href="#team"
+                  style={{ ...styles.secondaryButton, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   Meet the Team
-                </button>
+                </motion.a>
               </motion.div>
             </div>
 

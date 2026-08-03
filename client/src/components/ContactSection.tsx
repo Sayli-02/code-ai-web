@@ -171,7 +171,7 @@ export default function ContactSection() {
         style={styles.container}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <h2 style={{...styles.heading, marginBottom: '16px'}}>Get in Touch</h2>
@@ -187,7 +187,7 @@ export default function ContactSection() {
             variants={formVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: false, margin: "-100px" }}
           >
             <motion.div style={styles.formGroup} variants={fieldVariants}>
               <label style={styles.label}>Name</label>
@@ -249,7 +249,7 @@ export default function ContactSection() {
             style={styles.infoSection}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: false, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2, ease: easeCustom as any }}
           >
             <div style={styles.infoBlock}>

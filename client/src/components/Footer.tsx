@@ -105,8 +105,9 @@ export default function Footer() {
           <div style={styles.linksSection}>
             <div style={styles.linkColumn}>
               <span style={styles.linkHeading}>Explore</span>
-              <motion.a href="#" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>About Us</motion.a>
-              <motion.a href="#" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Events</motion.a>
+              <motion.a href="#home" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Home</motion.a>
+              <motion.a href="#about" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>About Us</motion.a>
+              <motion.a href="#events" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Events</motion.a>
               <motion.a href="#" style={styles.link} whileHover={{ x: 4, opacity: 1 }}>Projects</motion.a>
             </div>
             <div style={styles.linkColumn}>

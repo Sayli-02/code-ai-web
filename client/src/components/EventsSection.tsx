@@ -158,7 +158,7 @@ export default function EventsSection() {
         style={styles.container}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <h2 style={styles.heading}>Upcoming Events</h2>
@@ -171,7 +171,7 @@ export default function EventsSection() {
                 style={styles.eventCard}
                 initial={{ opacity: 0, x: isMobile ? 0 : (index % 2 === 0 ? -40 : 40) }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
+                viewport={{ once: false, margin: "-80px" }}
                 transition={{ duration: 0.5, ease: easeCustom as any }}
                 whileHover={{ 
                   y: -4, 

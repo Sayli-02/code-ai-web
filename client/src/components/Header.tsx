@@ -11,7 +11,9 @@ export default function Header() {
   const { scrollY } = useScroll();
   // Map scroll values to colors: past ~600px switches to light mode
   const navLinkColor = useTransform(scrollY, [500, 600], ['#ffffff', '#000000']);
-  const navBgColor = useTransform(scrollY, [500, 600], ['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.05)']);
+  const navBgColor = useTransform(scrollY, [500, 600], ['rgba(255, 255, 255, 0.1)', 'rgba(255, 255, 255, 0.95)']);
+  const navBorder = useTransform(scrollY, [500, 600], ['1px solid rgba(255, 255, 255, 0)', '1px solid rgba(0, 0, 0, 0.08)']);
+  const navShadow = useTransform(scrollY, [500, 600], ['none', '0 4px 20px rgba(0,0,0,0.08)']);
   const btnBgColor = useTransform(scrollY, [500, 600], ['#F4F4F6', '#000000']);
   const btnTextColor = useTransform(scrollY, [500, 600], ['#000000', '#ffffff']);
   const btnIconColor = useTransform(scrollY, [500, 600], ['#000000', '#ffffff']);
@@ -157,7 +159,8 @@ export default function Header() {
         <div style={styles.navLeft}>
           {/* Navbar Links */}
           {!isMobile && (
-            <motion.div style={{ ...styles.navLinks, backgroundColor: navBgColor }}>
+            <motion.div style={{ ...styles.navLinks, backgroundColor: navBgColor, border: navBorder as any, boxShadow: navShadow as any }}>
+              <motion.a whileHover={{ opacity: 1 }} href="#home" style={{ ...styles.navLink, color: navLinkColor }}>Home</motion.a>
               <motion.a whileHover={{ opacity: 1 }} href="#about" style={{ ...styles.navLink, color: navLinkColor }}>About</motion.a>
               <motion.a whileHover={{ opacity: 1 }} href="#events" style={{ ...styles.navLink, color: navLinkColor }}>Events</motion.a>
               <motion.a whileHover={{ opacity: 1 }} href="#team" style={{ ...styles.navLink, color: navLinkColor }}>Team</motion.a>
@@ -202,6 +205,7 @@ export default function Header() {
           transition={{ duration: 0.3, ease: easeCustom as any }}
           style={styles.mobileMenu}
         >
+          <a href="#home" onClick={() => setIsMobileMenuOpen(false)} style={styles.mobileLink}>Home</a>
           <a href="#about" onClick={() => setIsMobileMenuOpen(false)} style={styles.mobileLink}>About</a>
           <a href="#events" onClick={() => setIsMobileMenuOpen(false)} style={styles.mobileLink}>Events</a>
           <a href="#team" onClick={() => setIsMobileMenuOpen(false)} style={styles.mobileLink}>Team</a>

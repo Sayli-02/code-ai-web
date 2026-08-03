@@ -95,9 +95,19 @@ export default function AboutSection() {
     },
   };
 
-  const containerVariants = {
+  const sectionVariants = {
     hidden: {},
-    visible: { transition: { staggerChildren: 0.15 } },
+    visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
+  };
+
+  const textVariants = {
+    hidden: { opacity: 0, x: -40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: easeCustom as any } },
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.15, duration: 0.6, ease: easeCustom as any } },
   };
 
   const itemVariants = {
@@ -110,30 +120,27 @@ export default function AboutSection() {
     <section id="about" style={styles.section}>
       <motion.div 
         style={styles.container}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, margin: "-100px" }}
       >
         <div style={styles.accentBar} />
-        <h2 style={styles.heading}>About DJS CodeAI</h2>
-        <p style={styles.paragraph}>
+        <motion.h2 style={styles.heading} variants={textVariants}>About DJS CodeAI</motion.h2>
+        <motion.p style={styles.paragraph} variants={textVariants}>
           DJS CodeAI is a student-led community at DJ Sanghvi College of Engineering dedicated to exploring artificial intelligence and coding, bringing together students to learn, build, and innovate together.
-        </p>
+        </motion.p>
 
-        <div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }}>
+        <motion.div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }} variants={textVariants}>
           <h3 style={{...styles.heading, fontSize: isMobile ? '1.5rem' : '1.75rem', marginBottom: '16px'}}>Our Vision</h3>
           <p style={styles.subParagraph}>
             Bridging theoretical knowledge and practical application through real projects and mentorship.
           </p>
-        </div>
+        </motion.div>
 
         <motion.div 
           style={styles.bulletsContainer}
           variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
         >
           {bullets.map((bullet, index) => (
             <motion.div 
@@ -154,15 +161,16 @@ export default function AboutSection() {
           ))}
         </motion.div>
 
-        <div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }}>
+        <motion.div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }} variants={textVariants}>
           <h3 style={{...styles.heading, fontSize: isMobile ? '1.5rem' : '1.75rem', marginBottom: '16px'}}>Mentor-Mentee System</h3>
           <p style={styles.subParagraph}>
             A structured mentor-mentee pairing system designed for hands-on guidance and continuous learning.
           </p>
-        </div>
+        </motion.div>
 
         <motion.button 
           style={styles.ctaButton}
+          variants={textVariants}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
