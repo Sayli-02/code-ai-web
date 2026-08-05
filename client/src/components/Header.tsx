@@ -104,7 +104,7 @@ export default function Header() {
       opacity: 0.8,
     },
     neuralButton: {
-      display: 'flex' as const,
+      display: isMobile ? 'none' : 'flex' as const,
       alignItems: 'center' as const,
       gap: '8px',
       backgroundColor: '#F4F4F6',

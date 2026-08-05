@@ -231,7 +231,7 @@ const getStyles = (isMobile: boolean) => ({
   heroSection: {
     position: 'relative' as const,
     width: '100%',
-    minHeight: '100vh',
+    minHeight: '100dvh',
     display: 'flex' as const,
     flexDirection: 'column' as const,
     justifyContent: 'flex-end' as const,
@@ -246,7 +246,7 @@ const getStyles = (isMobile: boolean) => ({
     top: 0,
     left: 0,
     width: '100%',
-    height: '100vh',
+    height: '100dvh',
     zIndex: 0,
     backgroundColor: '#000000',
     display: 'flex' as const,
@@ -258,7 +258,8 @@ const getStyles = (isMobile: boolean) => ({
   imageWrapper: {
     position: 'relative' as const,
     aspectRatio: '647 / 555',
-    height: '75%',
+    height: isMobile ? 'auto' : '75%',
+    width: isMobile ? '100%' : 'auto',
   },
   backgroundImage: {
     width: '100%',
