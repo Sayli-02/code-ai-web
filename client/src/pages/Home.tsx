@@ -103,21 +103,18 @@ export default function Home() {
             src="/assets/brain.png"
             alt="Animated Brain"
             style={styles.animatedBrain}
-            initial={{ opacity: 0, scale: 0.9, rotate: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={
               stage === 'done'
-                ? { opacity: 1, scale: 1, rotate: 360 }
+                ? { opacity: 1, scale: 1 }
                 : (stage === 'bg' || stage === 'hand')
-                ? { opacity: 0, scale: 0.9, rotate: 0 }
-                : { opacity: 1, scale: 1, rotate: 360 }
+                ? { opacity: 0, scale: 0.9 }
+                : { opacity: 1, scale: 1 }
             }
             transition={
               stage === 'done'
-                ? { rotate: { duration: 8, repeat: Infinity, ease: "linear" } }
-                : {
-                    default: { duration: 0.6, ease: easeCustom as any },
-                    rotate: { duration: 8, repeat: Infinity, ease: "linear" }
-                  }
+                ? { duration: 0 }
+                : { duration: 0.6, ease: easeCustom as any }
             }
           />
         </motion.div>
@@ -292,7 +289,7 @@ const getStyles = (isMobile: boolean) => ({
     position: 'relative' as const,
     zIndex: 10,
     padding: isMobile ? '24px 16px' : '40px 32px',
-    background: 'linear-gradient(to top, var(--bg-primary) 0%, var(--glass-bg) 50%, transparent 100%)',
+    background: 'transparent',
   },
   footerContent: {
     display: 'flex' as const,
@@ -314,20 +311,20 @@ const getStyles = (isMobile: boolean) => ({
   subtitleDot: {
     width: '8px',
     height: '8px',
-    backgroundColor: 'var(--text-primary)',
+    backgroundColor: '#ffffff',
     borderRadius: '50%',
     flexShrink: 0,
   },
   subtitleText: {
     fontSize: '13px',
     fontWeight: 400 as const,
-    color: 'var(--text-secondary)',
+    color: 'rgba(255, 255, 255, 0.7)',
     lineHeight: '1.4',
   },
   heading: {
     fontSize: 'clamp(2rem, 8vw, 4.5rem)',
     fontWeight: 300 as const,
-    color: 'var(--text-primary)',
+    color: '#ffffff',
     letterSpacing: '-0.03em',
     lineHeight: '1',
   },
@@ -337,8 +334,8 @@ const getStyles = (isMobile: boolean) => ({
     gap: '12px',
   },
   primaryButton: {
-    backgroundColor: 'var(--text-primary)',
-    color: 'var(--bg-primary)',
+    backgroundColor: '#ffffff',
+    color: '#000000',
     borderRadius: '9999px',
     padding: '10px 20px',
     fontSize: '13px',
@@ -349,8 +346,8 @@ const getStyles = (isMobile: boolean) => ({
   },
   secondaryButton: {
     backgroundColor: 'transparent',
-    color: 'var(--text-primary)',
-    border: '1px solid var(--border-color)',
+    color: '#ffffff',
+    border: '1px solid rgba(255, 255, 255, 0.3)',
     borderRadius: '9999px',
     padding: '10px 20px',
     fontSize: '13px',
@@ -365,13 +362,13 @@ const getStyles = (isMobile: boolean) => ({
     gap: '12px',
   },
   tagPill: {
-    backgroundColor: 'var(--glass-bg)',
-    border: '1px solid var(--glass-border)',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
     backdropFilter: 'blur(10px)',
     borderRadius: '9999px',
     padding: '8px 16px',
     fontSize: '11px',
     fontWeight: 500 as const,
-    color: 'var(--text-primary)',
+    color: '#ffffff',
   },
 });
