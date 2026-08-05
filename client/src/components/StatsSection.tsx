@@ -34,10 +34,10 @@ export default function StatsSection() {
   const [inView, setInView] = useState(false);
   
   const stats = [
-    { label: 'Members', value: 500, suffix: '+' },
-    { label: 'Projects', value: 20, suffix: '+' },
-    { label: 'Events Hosted', value: 15, suffix: '+' },
-    { label: 'Faculty Mentors', value: 2, suffix: '' },
+    { label: 'Team Members', value: 35, suffix: '+' },
+    { label: 'Projects', value: 3, suffix: '+' },
+    { label: 'Events Hosted', value: 3, suffix: '+' },
+    { label: 'Faculty Members', value: 3, suffix: '+' },
   ];
 
   const styles = {

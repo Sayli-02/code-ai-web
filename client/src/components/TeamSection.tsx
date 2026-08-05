@@ -1,62 +1,88 @@
 import { motion } from 'motion/react';
 import { User } from 'lucide-react';
 import { useIsMobile } from '@/hooks/useMobile';
+import { useState } from 'react';
 
 export default function TeamSection() {
   const isMobile = useIsMobile();
   const easeCustom = [0.16, 1, 0.3, 1];
-  const teamMembers = [
+  const [showPastMembers, setShowPastMembers] = useState(false);
+
+  const currentTeamMembers = [
     {
       id: 'faculty-1',
       name: 'Dr. Aruna Gawde',
-      role: 'Faculty Sponsor',
+      role: 'Head of Department',
       bio: 'Guiding the community with vast experience in academia and AI research.',
-      photo: '/assets/aruna.jpg',
+      photo: '/assets/Aruna-mam.jpg',
     },
     {
       id: 'faculty-2',
+      name: 'Prof. Purva Badhe',
+      role: 'Faculty co-ordinator',
+      bio: 'Mentoring students and fostering innovation in machine learning.',
+      photo: '/assets/Purva-mam.jpg',
+    },
+    { id: 1, name: 'Meet Dwada', role: 'Chairperson', bio: 'Leading the AI club and shaping its vision.' },
+    { id: 2, name: 'Saad Sayeed', role: 'VCP Tech', bio: 'Overseeing all technical initiatives and projects.' },
+    { id: 3, name: 'Juee Shimpi', role: 'VCP Admin', bio: 'Managing club administration and internal operations.' },
+    { id: 4, name: 'Suruchi Makwana', role: 'Secretary', bio: 'Coordinating communications and documentation.' },
+    { id: 5, name: 'Yash Poojari', role: 'Treasurer', bio: 'Managing finances and resource allocation.' },
+    { id: 6, name: 'Sayli Kulkarni', role: 'HOD Projects', bio: 'Leading technical projects and guiding teams.' },
+    { id: 7, name: 'Adish Shah', role: 'HOD Outreach', bio: 'Building external relations and partnerships.' },
+    { id: 8, name: 'Manya Sanghvi', role: 'HOD Outreach', bio: 'Driving community engagement and outreach programs.' },
+    { id: 9, name: 'Kavya Shah', role: 'HOD Events', bio: 'Planning and executing successful club events.' },
+    { id: 10, name: 'Swaleha Shaikh', role: 'HOD Events', bio: 'Organizing impactful workshops and hackathons.' },
+    { id: 11, name: 'Tanishka Dhanudharmi', role: 'HOD Creatives', bio: 'Leading the creative and design initiatives.' }
+  ];
+
+  const pastTeamMembers = [
+    {
+      id: 'faculty-3',
       name: 'Prof. Ragini Mishra',
       role: 'Faculty Sponsor',
       bio: 'Mentoring students and fostering innovation in machine learning.',
       photo: '/assets/ragini.jpg',
     },
     {
-      id: 1,
+      id: 12,
       name: 'Krishil Parikh',
       role: 'President',
       bio: 'Leading AI research and club operations with 3+ years in ML.',
     },
     {
-      id: 2,
+      id: 13,
       name: 'Krisha Maisheri',
       role: 'Vice President',
       bio: 'Specializing in deep learning and neural network architectures.',
     },
     {
-      id: 3,
+      id: 14,
       name: 'Rishee Panchal',
       role: 'Secretary',
       bio: 'Full-stack developer with expertise in AI integration.',
     },
     {
-      id: 4,
+      id: 15,
       name: 'Deep Mehta',
       role: 'Admin',
       bio: "Finance enthusiast integrating analytical and coding skills to power tomorrow's financial tools.",
     },
     {
-      id: 5,
+      id: 16,
       name: 'Netra Sangani',
       role: 'Events Head',
       bio: 'Great in event management.',
     },
     {
-      id: 6,
+      id: 17,
       name: 'Vruddhi Zaveri',
       role: 'Creatives Head',
       bio: 'From algorithms to aesthetics, creativity is intelligence having fun.',
     },
   ];
+
+  const activeMembers = showPastMembers ? pastTeamMembers : currentTeamMembers;
 
   const styles = {
     section: {
@@ -145,15 +171,36 @@ export default function TeamSection() {
         viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <h2 style={styles.heading}>Meet Our Team</h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', flexDirection: isMobile ? 'column' : 'row', marginBottom: '48px', gap: '16px' }}>
+          <h2 style={{...styles.heading, marginBottom: 0}}>{showPastMembers ? 'Past Team Members' : 'Meet Our Team'}</h2>
+          <motion.button
+            onClick={() => setShowPastMembers(!showPastMembers)}
+            style={{
+              padding: '12px 24px',
+              backgroundColor: '#000',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '9999px',
+              fontSize: '14px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              boxShadow: '0 4px 14px rgba(0,0,0,0.1)'
+            }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {showPastMembers ? 'View Current Team' : 'View Past Members'}
+          </motion.button>
+        </div>
         <motion.div 
+          key={showPastMembers ? 'past' : 'current'}
           style={styles.teamGrid}
           variants={gridVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, margin: "-50px" }}
         >
-          {teamMembers.map((member, index) => (
+          {activeMembers.map((member, index) => (
             <motion.div 
               key={member.id} 
               style={styles.memberCard}
