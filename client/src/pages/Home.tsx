@@ -257,6 +257,7 @@ const getStyles = (isMobile: boolean) => ({
     aspectRatio: '647 / 555',
     height: isMobile ? 'auto' : '75%',
     width: isMobile ? '100%' : 'auto',
+    top: isMobile ? '-8vh' : 0,
   },
   backgroundImage: {
     width: '100%',
