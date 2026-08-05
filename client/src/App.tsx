@@ -1,6 +1,8 @@
 import { Route, Switch } from "wouter";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import CustomCursor from "./components/CustomCursor";
 
 function Router() {
   return (
@@ -14,7 +16,13 @@ function Router() {
 }
 
 function App() {
-  return <Router />;
+  return (
+    <ThemeProvider switchable={true}>
+      <div className="animated-bg" />
+      <CustomCursor />
+      <Router />
+    </ThemeProvider>
+  );
 }
 
 export default App;

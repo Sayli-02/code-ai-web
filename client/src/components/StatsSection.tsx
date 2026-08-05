@@ -43,9 +43,9 @@ export default function StatsSection() {
   const styles = {
     section: {
       padding: isMobile ? '40px 16px' : '60px 32px',
-      background: 'linear-gradient(180deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.04) 100%)',
-      borderTop: '1px solid rgba(0,0,0,0.05)',
-      borderBottom: '1px solid rgba(0,0,0,0.05)',
+      backgroundColor: 'var(--bg-secondary)',
+      borderTop: '1px solid var(--border-light)',
+      borderBottom: '1px solid var(--border-light)',
       position: 'relative' as const,
       zIndex: 10,
     },
@@ -60,7 +60,6 @@ export default function StatsSection() {
     number: {
       fontSize: isMobile ? '2.5rem' : '3rem',
       fontWeight: 200 as const,
-      color: '#000000',
       letterSpacing: '-0.02em',
       lineHeight: '1',
       marginBottom: '8px',
@@ -68,7 +67,7 @@ export default function StatsSection() {
     label: {
       fontSize: '12px',
       fontWeight: 600 as const,
-      color: 'rgba(0, 0, 0, 0.45)',
+      color: 'var(--text-tertiary)',
       textTransform: 'uppercase' as const,
       letterSpacing: '0.05em',
     }
@@ -96,7 +95,7 @@ export default function StatsSection() {
       >
         {stats.map((stat, index) => (
           <motion.div key={index} variants={itemVariants}>
-            <div style={styles.number}>
+            <div style={styles.number} className="text-gradient">
               {inView ? <AnimatedCounter endValue={stat.value} /> : '0'}
               {stat.suffix}
             </div>

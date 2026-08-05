@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { Plus, Menu, X } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 import { useIsMobile } from '@/hooks/useMobile';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const easeCustom: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -9,6 +10,8 @@ export default function Header() {
   const isMobile = useIsMobile();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
+  
+  const { theme, toggleTheme } = useTheme();
   
   const { scrollY } = useScroll();
 
@@ -35,13 +38,13 @@ export default function Header() {
   }, []);
 
   // Map scroll values to colors: past ~600px switches to light mode
-  const navLinkColor = useTransform(scrollY, [500, 600], ['#ffffff', '#000000']);
-  const navBgColor = useTransform(scrollY, [500, 600], ['rgba(255, 255, 255, 0.1)', 'rgba(255, 255, 255, 0.95)']);
-  const navBorder = useTransform(scrollY, [500, 600], ['1px solid rgba(255, 255, 255, 0)', '1px solid rgba(0, 0, 0, 0.08)']);
-  const navShadow = useTransform(scrollY, [500, 600], ['none', '0 4px 20px rgba(0,0,0,0.08)']);
-  const btnBgColor = useTransform(scrollY, [500, 600], ['#F4F4F6', '#000000']);
-  const btnTextColor = useTransform(scrollY, [500, 600], ['#000000', '#ffffff']);
-  const btnIconColor = useTransform(scrollY, [500, 600], ['#000000', '#ffffff']);
+  const navLinkColor = useTransform(scrollY, [500, 600], ['#ffffff', 'var(--text-primary)']);
+  const navBgColor = useTransform(scrollY, [500, 600], ['rgba(255, 255, 255, 0.1)', 'var(--glass-bg)']);
+  const navBorder = useTransform(scrollY, [500, 600], ['1px solid rgba(255, 255, 255, 0)', '1px solid var(--border-color)']);
+  const navShadow = useTransform(scrollY, [500, 600], ['none', '0 8px 32px rgba(0,0,0,0.1)']);
+  const btnBgColor = useTransform(scrollY, [500, 600], ['#F4F4F6', 'var(--text-primary)']);
+  const btnTextColor = useTransform(scrollY, [500, 600], ['#000000', 'var(--bg-primary)']);
+  const btnIconColor = useTransform(scrollY, [500, 600], ['#000000', 'var(--bg-primary)']);
 
   const styles = {
     headerContainer: {
@@ -141,7 +144,7 @@ export default function Header() {
       top: '72px',
       left: '16px',
       right: '16px',
-      backgroundColor: 'rgba(0, 0, 0, 0.9)',
+      backgroundColor: 'var(--glass-bg)',
       backdropFilter: 'blur(20px)',
       borderRadius: '16px',
       padding: '16px 0',
@@ -152,11 +155,11 @@ export default function Header() {
     },
     mobileLink: {
       padding: '16px 24px',
-      color: '#ffffff',
+      color: 'var(--text-primary)',
       textDecoration: 'none',
       fontSize: '16px',
       fontWeight: 500 as const,
-      borderBottom: '1px solid rgba(255,255,255,0.05)',
+      borderBottom: '1px solid var(--border-light)',
     },
   };
 
@@ -227,6 +230,26 @@ export default function Header() {
 
         {/* Right side */}
         <div style={styles.navRight}>
+          <motion.button
+            onClick={toggleTheme}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '36px',
+              height: '36px',
+              borderRadius: '50%',
+              backgroundColor: navBgColor,
+              color: navLinkColor as any,
+              border: navBorder as any,
+              marginRight: '12px',
+              cursor: 'pointer'
+            }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </motion.button>
           {isMobile && (
             <motion.button 
               style={{ ...styles.hamburger, backgroundColor: navBgColor, color: navLinkColor as any }}
@@ -240,15 +263,15 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <div style={styles.neuralCircle}>
+            <div style={{...styles.neuralCircle, backgroundColor: btnTextColor as any}}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <motion.circle cx="4" cy="4" r="1.5" fill={btnIconColor} />
-                <motion.circle cx="12" cy="4" r="1.5" fill={btnIconColor} />
-                <motion.circle cx="4" cy="12" r="1.5" fill={btnIconColor} />
-                <motion.circle cx="12" cy="12" r="1.5" fill={btnIconColor} />
+                <motion.circle cx="4" cy="4" r="1.5" fill={btnIconColor as any} />
+                <motion.circle cx="12" cy="4" r="1.5" fill={btnIconColor as any} />
+                <motion.circle cx="4" cy="12" r="1.5" fill={btnIconColor as any} />
+                <motion.circle cx="12" cy="12" r="1.5" fill={btnIconColor as any} />
               </svg>
             </div>
-            <motion.span style={{ ...styles.neuralText, color: btnTextColor }}>Neural Systems</motion.span>
+            <motion.span style={{ ...styles.neuralText, color: btnTextColor as any }}>Neural Systems</motion.span>
           </motion.button>
         </div>
       </motion.nav>

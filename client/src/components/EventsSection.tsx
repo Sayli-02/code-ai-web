@@ -43,8 +43,8 @@ export default function EventsSection() {
   const styles = {
     section: {
       padding: isMobile ? '40px 16px' : '80px 32px',
-      backgroundColor: '#f9f9f9',
-      borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+      backgroundColor: 'var(--bg-secondary)',
+      borderBottom: '1px solid var(--border-color)',
     },
     container: {
       maxWidth: '1200px',
@@ -53,7 +53,7 @@ export default function EventsSection() {
     heading: {
       fontSize: isMobile ? '2rem' : '2.5rem',
       fontWeight: 300 as const,
-      color: '#000000',
+      color: 'var(--text-primary)',
       marginBottom: '48px',
       letterSpacing: '-0.02em',
     },
@@ -70,7 +70,7 @@ export default function EventsSection() {
       bottom: 0,
       width: '2px',
       transform: 'translateX(-50%)',
-      background: 'linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.2), rgba(0,0,0,0.05))',
+      background: 'linear-gradient(180deg, var(--border-light), var(--border-color), var(--border-light))',
       display: isMobile ? 'none' : 'block',
     },
     eventWrapper: (index: number) => ({
@@ -86,20 +86,21 @@ export default function EventsSection() {
       transform: 'translate(-50%, -50%)',
       width: '12px',
       height: '12px',
-      backgroundColor: '#111',
-      border: '3px solid #fff',
-      boxShadow: '0 0 0 2px rgba(0,0,0,0.15)',
+      backgroundColor: 'var(--text-primary)',
+      border: '3px solid var(--bg-primary)',
+      boxShadow: '0 0 0 2px var(--border-color)',
       borderRadius: '50%',
       zIndex: 2,
       display: isMobile ? 'none' : 'block',
     },
     eventCard: {
       width: isMobile ? '100%' : '46%',
-      backgroundColor: '#ffffff',
-      border: '1px solid rgba(0, 0, 0, 0.08)',
+      backgroundColor: 'var(--glass-bg)',
+      backdropFilter: 'blur(12px)',
+      border: '1px solid var(--glass-border)',
       borderRadius: '12px',
       padding: '24px',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.02)',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.05)',
     },
     eventHeader: {
       display: 'flex' as const,
@@ -112,7 +113,7 @@ export default function EventsSection() {
     eventTitle: {
       fontSize: '19px',
       fontWeight: 600 as const,
-      color: '#000000',
+      color: 'var(--text-primary)',
       margin: 0,
       letterSpacing: '-0.01em',
     },
@@ -123,14 +124,14 @@ export default function EventsSection() {
       fontSize: '11px',
       fontWeight: 600 as const,
       whiteSpace: 'nowrap' as const,
-      backgroundColor: status === 'Registration Open' ? '#000000' : 'transparent',
-      color: status === 'Registration Open' ? '#ffffff' : 'rgba(0, 0, 0, 0.6)',
-      border: status === 'Registration Open' ? '1px solid #000000' : '1px solid rgba(0, 0, 0, 0.2)',
+      backgroundColor: status === 'Registration Open' ? 'var(--text-primary)' : 'transparent',
+      color: status === 'Registration Open' ? 'var(--bg-primary)' : 'var(--text-secondary)',
+      border: status === 'Registration Open' ? '1px solid var(--text-primary)' : '1px solid var(--border-color)',
     }),
     eventDescription: {
       fontSize: '14px',
       fontWeight: 400 as const,
-      color: 'rgba(0, 0, 0, 0.65)',
+      color: 'var(--text-secondary)',
       lineHeight: '1.5',
       marginBottom: '16px',
       margin: '0 0 16px 0',
@@ -143,7 +144,7 @@ export default function EventsSection() {
     metaItem: {
       fontSize: '13px',
       fontWeight: 400 as const,
-      color: 'rgba(0, 0, 0, 0.6)',
+      color: 'var(--text-secondary)',
       display: 'flex' as const,
       gap: '8px',
     },
@@ -175,8 +176,8 @@ export default function EventsSection() {
                 transition={{ duration: 0.5, ease: easeCustom as any }}
                 whileHover={{ 
                   y: -4, 
-                  boxShadow: '0 12px 24px rgba(0,0,0,0.06)',
-                  borderColor: 'rgba(0,0,0,0.15)' 
+                  boxShadow: '0 12px 24px rgba(0,0,0,0.1)',
+                  borderColor: 'var(--border-color)' 
                 }}
               >
                 <div style={styles.eventHeader}>

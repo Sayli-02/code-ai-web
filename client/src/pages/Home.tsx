@@ -239,7 +239,7 @@ const getStyles = (isMobile: boolean) => ({
   contentSections: {
     position: 'relative' as const,
     zIndex: 10,
-    backgroundColor: '#ffffff',
+    backgroundColor: 'var(--bg-primary)',
   },
   backgroundWrapper: {
     position: 'fixed' as const,
@@ -291,7 +291,7 @@ const getStyles = (isMobile: boolean) => ({
     position: 'relative' as const,
     zIndex: 10,
     padding: isMobile ? '24px 16px' : '40px 32px',
-    background: 'linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%)',
+    background: 'linear-gradient(to top, var(--bg-primary) 0%, var(--glass-bg) 50%, transparent 100%)',
   },
   footerContent: {
     display: 'flex' as const,
@@ -313,20 +313,20 @@ const getStyles = (isMobile: boolean) => ({
   subtitleDot: {
     width: '8px',
     height: '8px',
-    backgroundColor: '#000000',
+    backgroundColor: 'var(--text-primary)',
     borderRadius: '50%',
     flexShrink: 0,
   },
   subtitleText: {
     fontSize: '13px',
     fontWeight: 400 as const,
-    color: 'rgba(0, 0, 0, 0.55)',
+    color: 'var(--text-secondary)',
     lineHeight: '1.4',
   },
   heading: {
     fontSize: 'clamp(2rem, 8vw, 4.5rem)',
     fontWeight: 300 as const,
-    color: '#000000',
+    color: 'var(--text-primary)',
     letterSpacing: '-0.03em',
     lineHeight: '1',
   },
@@ -336,8 +336,8 @@ const getStyles = (isMobile: boolean) => ({
     gap: '12px',
   },
   primaryButton: {
-    backgroundColor: '#000000',
-    color: '#ffffff',
+    backgroundColor: 'var(--text-primary)',
+    color: 'var(--bg-primary)',
     borderRadius: '9999px',
     padding: '10px 20px',
     fontSize: '13px',
@@ -348,8 +348,8 @@ const getStyles = (isMobile: boolean) => ({
   },
   secondaryButton: {
     backgroundColor: 'transparent',
-    color: '#000000',
-    border: '1px solid rgba(0, 0, 0, 0.35)',
+    color: 'var(--text-primary)',
+    border: '1px solid var(--border-color)',
     borderRadius: '9999px',
     padding: '10px 20px',
     fontSize: '13px',
@@ -364,12 +364,13 @@ const getStyles = (isMobile: boolean) => ({
     gap: '12px',
   },
   tagPill: {
-    backgroundColor: '#ffffff',
-    border: '1px solid rgba(0, 0, 0, 0.12)',
+    backgroundColor: 'var(--glass-bg)',
+    border: '1px solid var(--glass-border)',
+    backdropFilter: 'blur(10px)',
     borderRadius: '9999px',
     padding: '8px 16px',
     fontSize: '11px',
     fontWeight: 500 as const,
-    color: '#000000',
+    color: 'var(--text-primary)',
   },
 });

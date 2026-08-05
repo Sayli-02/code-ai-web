@@ -8,10 +8,11 @@ export default function Footer() {
   
   const styles = {
     footer: {
-      backgroundColor: '#000000',
-      color: '#ffffff',
+      backgroundColor: 'var(--bg-secondary)',
+      color: 'var(--text-primary)',
       padding: isMobile ? '40px 16px 24px' : '60px 32px 32px',
       fontFamily: 'Inter, sans-serif',
+      borderTop: '1px solid var(--border-color)',
     },
     container: {
       maxWidth: '1200px',
@@ -39,7 +40,7 @@ export default function Footer() {
     },
     brandDesc: {
       fontSize: '14px',
-      color: 'rgba(255, 255, 255, 0.6)',
+      color: 'var(--text-secondary)',
       lineHeight: '1.6',
     },
     linksSection: {
@@ -57,11 +58,11 @@ export default function Footer() {
       fontWeight: 600 as const,
       textTransform: 'uppercase' as const,
       letterSpacing: '0.05em',
-      color: 'rgba(255, 255, 255, 0.4)',
+      color: 'var(--text-tertiary)',
     },
     link: {
       fontSize: '14px',
-      color: '#ffffff',
+      color: 'var(--text-primary)',
       opacity: 0.7,
       textDecoration: 'none',
       cursor: 'pointer',
@@ -72,12 +73,12 @@ export default function Footer() {
       justifyContent: isMobile ? 'flex-start' as const : 'space-between' as const,
       alignItems: isMobile ? 'flex-start' as const : 'center' as const,
       paddingTop: '32px',
-      borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+      borderTop: '1px solid var(--border-color)',
       gap: isMobile ? '24px' : '16px',
     },
     copyright: {
       fontSize: '13px',
-      color: 'rgba(255, 255, 255, 0.5)',
+      color: 'var(--text-secondary)',
     },
     socials: {
       display: 'flex' as const,
@@ -85,7 +86,7 @@ export default function Footer() {
     },
     socialIcon: {
       fontSize: '18px',
-      color: '#ffffff',
+      color: 'var(--text-primary)',
       textDecoration: 'none',
       opacity: 0.7,
     },

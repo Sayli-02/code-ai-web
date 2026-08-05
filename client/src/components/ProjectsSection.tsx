@@ -32,8 +32,8 @@ export default function ProjectsSection() {
   const styles = {
     section: {
       padding: isMobile ? '40px 16px' : '80px 32px',
-      backgroundColor: '#ffffff',
-      borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+      backgroundColor: 'var(--bg-primary)',
+      borderBottom: '1px solid var(--border-color)',
     },
     container: {
       maxWidth: '1200px',
@@ -42,13 +42,13 @@ export default function ProjectsSection() {
     heading: {
       fontSize: isMobile ? '2rem' : '2.5rem',
       fontWeight: 300 as const,
-      color: '#000000',
+      color: 'var(--text-primary)',
       marginBottom: '16px',
       letterSpacing: '-0.02em',
     },
     subtitle: {
       fontSize: isMobile ? '16px' : '18px',
-      color: 'rgba(0,0,0,0.6)',
+      color: 'var(--text-secondary)',
       marginBottom: '48px',
       maxWidth: '600px',
       lineHeight: '1.5'
@@ -59,11 +59,12 @@ export default function ProjectsSection() {
       gap: '32px',
     },
     card: {
-      backgroundColor: '#ffffff',
-      border: '1px solid rgba(0, 0, 0, 0.08)',
+      backgroundColor: 'var(--glass-bg)',
+      backdropFilter: 'blur(12px)',
+      border: '1px solid var(--glass-border)',
       borderRadius: '12px',
       padding: '24px',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.02)',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.05)',
       display: 'flex' as const,
       flexDirection: 'column' as const,
     },
@@ -71,12 +72,12 @@ export default function ProjectsSection() {
       fontSize: '20px',
       fontWeight: 600 as const,
       marginBottom: '12px',
-      color: '#000',
+      color: 'var(--text-primary)',
       letterSpacing: '-0.01em',
     },
     cardDesc: {
       fontSize: '14px',
-      color: 'rgba(0,0,0,0.65)',
+      color: 'var(--text-secondary)',
       lineHeight: '1.5',
       marginBottom: '24px',
       flexGrow: 1,
@@ -88,19 +89,19 @@ export default function ProjectsSection() {
       marginBottom: '24px',
     },
     tag: {
-      backgroundColor: '#f4f4f4',
-      border: '1px solid rgba(0, 0, 0, 0.1)',
+      backgroundColor: 'var(--bg-tertiary)',
+      border: '1px solid var(--border-color)',
       borderRadius: '9999px',
       padding: '4px 12px',
       fontSize: '11px',
       fontWeight: 500 as const,
-      color: '#333',
+      color: 'var(--text-primary)',
     },
     linksContainer: {
       display: 'flex' as const,
       alignItems: 'center' as const,
       gap: '16px',
-      borderTop: '1px solid rgba(0,0,0,0.05)',
+      borderTop: '1px solid var(--border-light)',
       paddingTop: '16px',
     },
     link: {
@@ -109,7 +110,7 @@ export default function ProjectsSection() {
       gap: '6px',
       fontSize: '13px',
       fontWeight: 500 as const,
-      color: '#000',
+      color: 'var(--text-primary)',
       textDecoration: 'none',
       opacity: 0.8,
     }
@@ -153,8 +154,9 @@ export default function ProjectsSection() {
               variants={itemVariants}
               whileHover={{ 
                 y: -6, 
-                boxShadow: '0 12px 24px rgba(0,0,0,0.08)',
-                borderColor: 'rgba(0,0,0,0.15)'
+                scale: 1.02,
+                boxShadow: '0 12px 32px rgba(0,0,0,0.1)',
+                borderColor: 'var(--border-color)'
               }}
             >
               <h3 style={styles.cardTitle}>{project.title}</h3>

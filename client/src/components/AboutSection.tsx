@@ -15,8 +15,8 @@ export default function AboutSection() {
   const styles = {
     section: {
       padding: isMobile ? '40px 16px' : '80px 32px',
-      backgroundColor: '#ffffff',
-      borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+      backgroundColor: 'var(--bg-primary)',
+      borderBottom: '1px solid var(--border-color)',
     },
     container: {
       maxWidth: '1200px',
@@ -30,20 +30,20 @@ export default function AboutSection() {
       top: '10px',
       height: '80%',
       width: '3px',
-      background: 'linear-gradient(to bottom, #111 0%, transparent 100%)',
+      background: 'var(--accent-gradient)',
       borderRadius: '4px',
     },
     heading: {
       fontSize: isMobile ? '2rem' : '2.5rem',
       fontWeight: 400 as const,
-      color: '#000000',
+      color: 'var(--text-primary)',
       marginBottom: '32px',
       letterSpacing: '-0.03em',
     },
     paragraph: {
       fontSize: isMobile ? '18px' : '22px',
       fontWeight: 300 as const,
-      color: 'rgba(0, 0, 0, 0.8)',
+      color: 'var(--text-secondary)',
       lineHeight: '1.5',
       marginBottom: '56px',
       maxWidth: '850px',
@@ -52,7 +52,7 @@ export default function AboutSection() {
     subParagraph: {
       fontSize: isMobile ? '15px' : '16px',
       fontWeight: 400 as const,
-      color: 'rgba(0, 0, 0, 0.65)',
+      color: 'var(--text-secondary)',
       lineHeight: '1.6',
       marginBottom: '32px',
       maxWidth: '600px',
@@ -66,11 +66,11 @@ export default function AboutSection() {
     bulletItem: {
       display: 'flex' as const,
       gap: '16px',
-      background: 'linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%)',
+      backgroundColor: 'var(--card-bg)',
       padding: '24px',
       borderRadius: '12px',
-      border: '1px solid rgba(0,0,0,0.08)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.02)',
+      border: '1px solid var(--border-color)',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.05)',
       alignItems: 'flex-start' as const,
     },
     bulletDot: {
@@ -79,12 +79,12 @@ export default function AboutSection() {
     bulletText: {
       fontSize: '15px',
       fontWeight: 400 as const,
-      color: 'rgba(0, 0, 0, 0.7)',
+      color: 'var(--text-secondary)',
       lineHeight: '1.5',
     },
     ctaButton: {
-      backgroundColor: '#000000',
-      color: '#ffffff',
+      backgroundColor: 'var(--text-primary)',
+      color: 'var(--bg-primary)',
       border: 'none',
       borderRadius: '9999px',
       padding: '12px 32px',
@@ -131,7 +131,7 @@ export default function AboutSection() {
           DJS CodeAI is a student-led community at DJ Sanghvi College of Engineering dedicated to exploring artificial intelligence and coding, bringing together students to learn, build, and innovate together.
         </motion.p>
 
-        <motion.div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }} variants={textVariants}>
+        <motion.div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid var(--text-primary)', marginBottom: '48px' }} variants={textVariants}>
           <h3 style={{...styles.heading, fontSize: isMobile ? '1.5rem' : '1.75rem', marginBottom: '16px'}}>Our Vision</h3>
           <p style={styles.subParagraph}>
             Bridging theoretical knowledge and practical application through real projects and mentorship.
@@ -150,8 +150,8 @@ export default function AboutSection() {
               whileHover="hover"
             >
               <motion.div variants={{ hover: { scale: 1.1, rotate: 5 } }} transition={{ type: "spring", stiffness: 400 }}>
-                <div style={{ backgroundColor: '#111', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
-                  <CheckCircle2 size={16} color="#ffffff" />
+                <div style={{ backgroundColor: 'var(--text-primary)', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+                  <CheckCircle2 size={16} color="var(--bg-primary)" />
                 </div>
               </motion.div>
               <div>
@@ -161,7 +161,7 @@ export default function AboutSection() {
           ))}
         </motion.div>
 
-        <motion.div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid #000000', marginBottom: '48px' }} variants={textVariants}>
+        <motion.div style={{ paddingLeft: isMobile ? '16px' : '24px', borderLeft: '2px solid var(--text-primary)', marginBottom: '48px' }} variants={textVariants}>
           <h3 style={{...styles.heading, fontSize: isMobile ? '1.5rem' : '1.75rem', marginBottom: '16px'}}>Mentor-Mentee System</h3>
           <p style={styles.subParagraph}>
             A structured mentor-mentee pairing system designed for hands-on guidance and continuous learning.
