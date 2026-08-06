@@ -33,7 +33,10 @@ export default function TeamSection() {
     { id: 8, name: 'Manya Sanghvi', role: 'HOD Outreach', bio: 'Driving community engagement and outreach programs.' },
     { id: 9, name: 'Kavya Shah', role: 'HOD Events', bio: 'Planning and executing successful club events.' },
     { id: 10, name: 'Swaleha Shaikh', role: 'HOD Events', bio: 'Organizing impactful workshops and hackathons.' },
-    { id: 11, name: 'Tanishka Dhanudharmi', role: 'HOD Creatives', bio: 'Leading the creative and design initiatives.' }
+    { id: 11, name: 'Tanishka Dhanudharmi', role: 'HOD Creatives', bio: 'Leading the creative and design initiatives.' },
+    { id: 18, name: 'ABDULQADAR MANASAWALA', role: 'Tech Mentor', bio: 'Guiding technical projects and development.' },
+    { id: 19, name: 'SHREYA KHANNA', role: 'Tech Mentor', bio: 'Mentoring students and providing technical guidance.' },
+    { id: 20, name: 'KAVYA SAJIT', role: 'Tech Mentor', bio: 'Providing technical expertise and mentorship.' }
   ];
 
   const pastTeamMembers = [
@@ -103,7 +106,7 @@ export default function TeamSection() {
     },
     teamGrid: {
       display: 'grid' as const,
-      gridTemplateColumns: isMobile ? 'repeat(auto-fit, minmax(140px, 1fr))' : 'repeat(auto-fit, minmax(280px, 1fr))',
+      gridTemplateColumns: isMobile ? 'repeat(auto-fit, minmax(140px, 1fr))' : 'repeat(auto-fit, minmax(200px, 1fr))',
       gap: isMobile ? '16px' : '32px',
     },
     memberCard: {
@@ -134,6 +137,7 @@ export default function TeamSection() {
       color: 'var(--text-primary)',
       margin: '0 0 4px 0',
       letterSpacing: '-0.01em',
+      textTransform: 'uppercase' as const,
     },
     memberRole: {
       fontSize: '13px',
